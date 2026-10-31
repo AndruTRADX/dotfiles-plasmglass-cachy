@@ -11,8 +11,8 @@ PreviewImage=/usr/share/wallpapers/cachyos-wallpapers/north.png
 SlidePaths=/usr/share/wallpapers/
 
 [Containments][43]
-ItemGeometries-1920x1080=Applet-102:0,0,160,960,0;Applet-101:656,736,640,160,0;Applet-99:1760,0,160,960,0;
-ItemGeometriesHorizontal=Applet-102:0,0,160,960,0;Applet-101:656,736,640,160,0;Applet-99:1760,0,160,960,0;
+ItemGeometries-1920x1080=Applet-102:0,32,160,960,0;Applet-101:656,736,640,160,0;Applet-99:1760,32,160,960,0;
+ItemGeometriesHorizontal=Applet-102:0,32,160,960,0;Applet-101:656,736,640,160,0;Applet-99:1760,32,160,960,0;
 activityId=01f28550-c52c-43e7-8aa3-6d1b1113a125
 formfactor=0
 immutability=1
@@ -49,6 +49,7 @@ framerate=30
 hideToolTip=true
 inactiveBlockColors={"alpha":0.3,"colorsOrientation":0,"custom":"#013eff","enabled":false,"followColor":0,"hueEnd":360,"hueStart":0,"image":{"fillMode":2,"source":""},"lightness":0.5,"lightnessEnabled":false,"list":["#ED8796","#A6DA95","#EED49F","#8AADF4","#F5BDE6","#8BD5CA","#f5a97f"],"reverseList":false,"saturation":0.5,"saturationEnabled":false,"smoothGradient":true,"sourceType":1,"systemColor":"textColor","systemColorSet":"Window"}
 orientation=2
+pauseOnMaximizedWindow=true
 visualizerStyle=2
 waveFillColors={"alpha":0.3,"colorsOrientation":0,"custom":"#ffffff","enabled":false,"followColor":0,"hueEnd":360,"hueStart":0,"image":{"fillMode":2,"source":""},"lightness":0.5,"lightnessEnabled":false,"list":["#ED8796","#A6DA95","#EED49F","#8AADF4","#F5BDE6","#8BD5CA","#f5a97f"],"reverseList":false,"saturation":0.5,"saturationEnabled":false,"smoothGradient":true,"sourceType":0,"systemColor":"highlightColor","systemColorSet":"Window"}
 
@@ -73,6 +74,7 @@ framerate=30
 hideToolTip=true
 inactiveBlockColors={"alpha":0.3,"colorsOrientation":0,"custom":"#013eff","enabled":false,"followColor":0,"hueEnd":360,"hueStart":0,"image":{"fillMode":2,"source":""},"lightness":0.5,"lightnessEnabled":false,"list":["#ED8796","#A6DA95","#EED49F","#8AADF4","#F5BDE6","#8BD5CA","#f5a97f"],"reverseList":false,"saturation":0.5,"saturationEnabled":false,"smoothGradient":true,"sourceType":1,"systemColor":"textColor","systemColorSet":"Window"}
 orientation=3
+pauseOnMaximizedWindow=true
 visualizerStyle=2
 waveFillColors={"alpha":0.3,"colorsOrientation":0,"custom":"#ffffff","enabled":false,"followColor":0,"hueEnd":360,"hueStart":0,"image":{"fillMode":2,"source":""},"lightness":0.5,"lightnessEnabled":false,"list":["#ED8796","#A6DA95","#EED49F","#8AADF4","#F5BDE6","#8BD5CA","#f5a97f"],"reverseList":false,"saturation":0.5,"saturationEnabled":false,"smoothGradient":true,"sourceType":0,"systemColor":"highlightColor","systemColorSet":"Window"}
 waveMode=1
