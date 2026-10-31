@@ -79,6 +79,9 @@ say "Glass tint follows the Global Theme (light/dark) automatically"
 systemctl --user daemon-reload
 systemctl --user enable --now liquid-glass-follow.path
 
+say "Bluetooth headphones: report play/pause state so one button toggles correctly"
+systemctl --user enable --now mpris-proxy.service
+
 # ------------------------------------------------------------- shell
 if [[ "$(getent passwd "$USER" | cut -d: -f7)" != */fish ]]; then
   say "Setting fish as the default shell"
