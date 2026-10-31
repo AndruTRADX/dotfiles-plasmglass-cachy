@@ -22,6 +22,11 @@ say "Load uinput at boot (Bluetooth headphone media buttons / AVRCP)"
 echo uinput > /etc/modules-load.d/uinput.conf
 modprobe uinput
 
+say "Let bluetoothd open /dev/uinput (OpenLinkHub changes its owner)"
+install -Dm644 bluetooth-uinput.conf /etc/systemd/system/bluetooth.service.d/uinput.conf
+systemctl daemon-reload
+systemctl restart bluetooth
+
 say "Add $USER_NAME to the i2c group (monitor brightness over DDC/CI)"
 usermod -aG i2c "$USER_NAME"
 
