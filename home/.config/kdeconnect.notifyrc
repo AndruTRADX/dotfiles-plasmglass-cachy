@@ -1,0 +1,12 @@
+[Event/pingReceived]
+Action=Popup|Sound
+Sound=message-new-instant
+
+[Event/callReceived]
+Action=Popup|Sound
+Sound=message-new-instant
+
+[Event/notification]
+Action=Popup|Sound
+Sound=message-new-instant
+

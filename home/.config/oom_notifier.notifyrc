@@ -1,0 +1,4 @@
+[Event/catastrophe]
+Action=Popup|Sound
+Sound=dialog-error
+

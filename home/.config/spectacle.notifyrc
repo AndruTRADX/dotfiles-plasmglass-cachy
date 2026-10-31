@@ -1,0 +1,8 @@
+[Event/newScreenshotSaved]
+Action=Popup|Sound
+Sound=completion-success
+
+[Event/recordingSaved]
+Action=Popup|Sound
+Sound=completion-success
+

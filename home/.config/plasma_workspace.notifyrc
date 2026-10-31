@@ -1,0 +1,24 @@
+[Event/startkde]
+Action=Sound
+Sound=desktop-login
+
+[Event/exitkde]
+Action=Sound
+Sound=desktop-logout
+
+[Event/Trash: emptied]
+Action=Sound
+Sound=device-removed
+
+[Event/fatalerror]
+Action=Popup|Sound
+Sound=dialog-error
+
+[Event/catastrophe]
+Action=Popup|Sound
+Sound=dialog-error
+
+[Event/messageCritical]
+Action=Sound|Taskbar
+Sound=dialog-error
+

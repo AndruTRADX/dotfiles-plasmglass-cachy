@@ -24,7 +24,7 @@ cd dotfiles
 | What | Where |
 | --- | --- |
 | Liquid glass | `glass-effect.sh` (KWin effect only). Reference values in `kwin-glass.ini` |
-| Sounds | **Wii** sound theme (downloaded from GitHub) |
+| Sounds | **Wii** sound theme (downloaded from GitHub), plus `home/.config/*.notifyrc` so more Plasma actions use it: login/logout, lock/unlock, screenshot/recording saved, network and Bluetooth connect, KDE Connect ping/call/notification, empty trash, admin password prompt, low disk space, critical errors |
 | Fish | `home/.config/fish/` (config + PATH + functions `cls`, `fixaudio`, `fixmicro`, `fixglass`), **pure** prompt |
 | Colours | `AppleDarkPurple` / `AppleLightPurple`, Plasma Style `AppleDark-ALL`, GTK `MacTahoe-Dark-purple` |
 | Icons | **MacTahoe-purple-dark** (downloaded from GitHub), `capitaine-cursors` cursor |

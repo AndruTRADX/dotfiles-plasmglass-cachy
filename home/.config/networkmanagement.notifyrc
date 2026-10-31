@@ -1,0 +1,8 @@
+[Event/ConnectionActivated]
+Action=Popup|Sound
+Sound=device-added
+
+[Event/ConnectionDeactivated]
+Action=Popup|Sound
+Sound=device-removed
+

@@ -1,0 +1,8 @@
+[Event/locked]
+Action=Sound
+Sound=service-logout
+
+[Event/unlocked]
+Action=Sound
+Sound=service-login
+

@@ -1,0 +1,4 @@
+[Event/freespacenotif]
+Action=Popup|Sound
+Sound=dialog-warning
+

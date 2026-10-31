@@ -1,0 +1,8 @@
+[Event/SetupFinished]
+Action=Popup|Sound
+Sound=device-added
+
+[Event/ConnectionFailed]
+Action=Popup|Sound
+Sound=dialog-error
+
