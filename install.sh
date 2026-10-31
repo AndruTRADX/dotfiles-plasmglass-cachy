@@ -56,6 +56,7 @@ kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key library org.kde.k
 kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key theme __aurorae__svg__MacTahoe-Dark
 kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key ButtonsOnLeft XIA
 kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key ButtonsOnRight ""
+kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key BorderSize Tiny
 
 # Splash, desktop and lock screen wallpaper (light/dark variants follow the colour scheme)
 kwriteconfig6 --file ksplashrc --group KSplash --key Theme com.github.vinceliuice.MacTahoe-Dark
