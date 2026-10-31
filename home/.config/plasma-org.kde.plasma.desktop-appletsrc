@@ -109,28 +109,6 @@ plugin=org.kde.plasma.shutdownorswitch
 popupHeight=137
 popupWidth=216
 
-[Containments][45][Applets][103]
-immutability=1
-plugin=luisbocanegra.audio.visualizer
-
-[Containments][45][Applets][103][Configuration]
-popupHeight=451
-popupWidth=450
-
-[Containments][45][Applets][103][Configuration][ConfigDialog]
-DialogHeight=630
-DialogWidth=810
-
-[Containments][45][Applets][103][Configuration][General]
-barColors={"alpha":1,"colorsOrientation":0,"custom":"#013eff","enabled":false,"followColor":0,"hueEnd":360,"hueStart":0,"image":{"fillMode":2,"source":""},"lightness":0.5,"lightnessEnabled":false,"list":["#ED8796","#A6DA95","#EED49F","#8AADF4","#F5BDE6","#8BD5CA","#f5a97f"],"reverseList":false,"saturation":0.5,"saturationEnabled":false,"smoothGradient":true,"sourceType":7,"systemColor":"highlightColor","systemColorSet":"Window"}
-desktopWidgetBg=0
-disableLeftClick=true
-framerate=30
-hideToolTip=true
-inactiveBlockColors={"alpha":0.3,"colorsOrientation":0,"custom":"#013eff","enabled":false,"followColor":0,"hueEnd":360,"hueStart":0,"image":{"fillMode":2,"source":""},"lightness":0.5,"lightnessEnabled":false,"list":["#ED8796","#A6DA95","#EED49F","#8AADF4","#F5BDE6","#8BD5CA","#f5a97f"],"reverseList":false,"saturation":0.5,"saturationEnabled":false,"smoothGradient":true,"sourceType":1,"systemColor":"textColor","systemColorSet":"Window"}
-length=75
-waveFillColors={"alpha":0.3,"colorsOrientation":0,"custom":"#013eff","enabled":false,"followColor":0,"hueEnd":360,"hueStart":0,"image":{"fillMode":2,"source":""},"lightness":0.5,"lightnessEnabled":false,"list":["#ED8796","#A6DA95","#EED49F","#8AADF4","#F5BDE6","#8BD5CA","#f5a97f"],"reverseList":false,"saturation":0.5,"saturationEnabled":false,"smoothGradient":true,"sourceType":7,"systemColor":"highlightColor","systemColorSet":"Window"}
-
 [Containments][45][Applets][46]
 immutability=1
 plugin=org.kde.plasma.marginsseparator
@@ -375,7 +353,7 @@ immutability=1
 plugin=org.kde.plasma.marginsseparator
 
 [Containments][45][General]
-AppletOrder=46;47;48;49;50;51;52;53;103;100;54;67;68;69;72;73;74;75
+AppletOrder=46;47;48;49;50;51;52;53;100;54;67;68;69;72;73;74;75
 
 [Containments][76]
 activityId=
