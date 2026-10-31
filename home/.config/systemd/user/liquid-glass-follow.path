@@ -1,0 +1,9 @@
+[Unit]
+Description=Watch the colour scheme to keep the liquid glass tint in sync
+
+[Path]
+PathChanged=%h/.config/kdeglobals
+Unit=liquid-glass-follow.service
+
+[Install]
+WantedBy=default.target

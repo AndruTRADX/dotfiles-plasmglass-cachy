@@ -75,6 +75,10 @@ plasma-apply-wallpaperimage "$WALL" || true
 say "Liquid glass"
 ./theme.sh dark
 
+say "Glass tint follows the Global Theme (light/dark) automatically"
+systemctl --user daemon-reload
+systemctl --user enable --now liquid-glass-follow.path
+
 # ------------------------------------------------------------- shell
 if [[ "$(getent passwd "$USER" | cut -d: -f7)" != */fish ]]; then
   say "Setting fish as the default shell"

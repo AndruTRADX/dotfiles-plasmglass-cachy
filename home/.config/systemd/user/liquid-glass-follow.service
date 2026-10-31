@@ -1,0 +1,6 @@
+[Unit]
+Description=Match the liquid glass tint to the current light/dark theme
+
+[Service]
+Type=oneshot
+ExecStart=%h/Code/dotfiles/glass-follow.sh
