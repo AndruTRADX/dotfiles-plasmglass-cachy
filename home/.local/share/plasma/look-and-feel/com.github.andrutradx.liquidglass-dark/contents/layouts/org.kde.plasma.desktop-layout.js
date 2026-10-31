@@ -48,8 +48,8 @@ var layout = {
                 {
                     "config": {
                         "/": {
-                            "popupHeight": "450",
-                            "popupWidth": "450"
+                            "popupHeight": "375",
+                            "popupWidth": "525"
                         },
                         "/ConfigDialog": {
                             "DialogHeight": "630",
@@ -80,12 +80,15 @@ var layout = {
             ],
             "config": {
                 "/": {
-                    "ItemGeometries-1920x1080": "Applet-140:0,0,160,944,0;Applet-139:656,736,640,160,0;Applet-141:1760,0,160,944,0;",
-                    "ItemGeometriesHorizontal": "Applet-140:0,0,160,944,0;Applet-139:656,736,640,160,0;Applet-141:1760,0,160,944,0;",
+                    "ItemGeometries-1920x1080": "Applet-175:0,0,160,944,0;Applet-174:656,736,640,160,0;Applet-176:1760,0,160,944,0;",
+                    "ItemGeometriesHorizontal": "Applet-175:0,0,160,944,0;Applet-174:656,736,640,160,0;Applet-176:1760,0,160,944,0;",
                     "formfactor": "0",
                     "immutability": "1",
                     "lastScreen": "0",
                     "wallpaperplugin": "org.kde.image"
+                },
+                "/Wallpaper/org.kde.image/General": {
+                    "Image": "file://" + userDataPath() + "/.local/share/wallpapers/MacTahoe"
                 }
             },
             "wallpaperPlugin": "org.kde.image"
@@ -147,7 +150,7 @@ var layout = {
                 {
                     "config": {
                         "/": {
-                            "popupHeight": "375",
+                            "popupHeight": "451",
                             "popupWidth": "525"
                         }
                     },

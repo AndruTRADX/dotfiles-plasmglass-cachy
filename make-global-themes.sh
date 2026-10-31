@@ -20,6 +20,8 @@ SRC_LIGHT="$TMP/mactahoe/plasma/look-and-feel/com.github.vinceliuice.MacTahoe-Li
 # dumpCurrentLayoutJS stores desktop widget positions by applet id, but ids change on every load,
 # so append a step that rebuilds the position map from the widgets actually created.
 "$QDBUS" org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.dumpCurrentLayoutJS > "$TMP/layout.js"
+# Paths under this home (e.g. the wallpaper) must work for any user name: userDataPath() is the home folder.
+sed -i "s|\"file://$HOME/|\"file://\" + userDataPath() + \"/|g" "$TMP/layout.js"
 cat >> "$TMP/layout.js" <<'JS'
 
 // Desktop widget positions (x,y,width,height) inside the area left free by the panels.
