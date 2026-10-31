@@ -1,0 +1,12 @@
+# The openlinkhub package runs `systemctl disable --now` in pre_upgrade and never enables it
+# again, so every upgrade leaves the Corsair WebUI (http://127.0.0.1:27003) dead after reboot.
+# Only fires when openlinkhub itself is upgraded; does nothing on machines without it.
+[Trigger]
+Operation = Upgrade
+Type = Package
+Target = openlinkhub
+
+[Action]
+Description = Re-enabling OpenLinkHub after its upgrade
+When = PostTransaction
+Exec = /usr/bin/systemctl enable --now openlinkhub.service

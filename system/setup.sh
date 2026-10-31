@@ -8,8 +8,9 @@ USER_NAME="${SUDO_USER:?run through sudo so the target user is known}"
 
 say() { printf '\n\033[1;35m==> %s\033[0m\n' "$*"; }
 
-say "Pacman hook: warn when KWin is upgraded (glass effect needs 'fixglass')"
+say "Pacman hooks: warn when KWin is upgraded (glass needs 'fixglass'); re-enable OpenLinkHub after its upgrades"
 install -Dm644 pacman-hooks/kwin-glass-rebuild.hook /etc/pacman.d/hooks/kwin-glass-rebuild.hook
+install -Dm644 pacman-hooks/openlinkhub-reenable.hook /etc/pacman.d/hooks/openlinkhub-reenable.hook
 
 say "Monthly btrfs scrub of / (detects silent data corruption)"
 systemctl enable --now btrfs-scrub@-.timer
