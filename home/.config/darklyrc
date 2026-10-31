@@ -1,0 +1,15 @@
+[Common]
+FancyMargins=false
+ShadowSize=ShadowNone
+
+[Style]
+DisableDolphinUrlNavigatorBackground=false
+DockWidgetDrawFrame=true
+KTextEditDrawFrame=true
+MenuItemDrawStrongFocus=false
+MenuOpacity=0
+SidePanelDrawFrame=true
+TabBarOpacity=0
+TitleWidgetDrawFrame=true
+WidgetDrawShadow=false
+WindowDragMode=WD_FULL
