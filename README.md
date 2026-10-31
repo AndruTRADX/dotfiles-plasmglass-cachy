@@ -22,7 +22,7 @@ cd dotfiles
 
 | Que | Donde |
 |---|---|
-| Liquid glass | `glass-reactivities.sh` (instala `kwin-effects-glass-git` y aplica el preset). Valores exactos de referencia en `kwin-glass.ini` |
+| Liquid glass | `glass-effect.sh` (instala `kwin-effects-glass-git` y aplica el preset). Valores exactos de referencia en `kwin-glass.ini` |
 | Sonidos | Tema **Wii** (se descarga de GitHub) |
 | Fish | `home/.config/fish/` (config + funciones `cls`, `fixaudio`, `fixmicro`), prompt **pure** |
 | Colores | `AppleDarkPurple` / `AppleLightPurple`, Plasma Style `AppleDark-ALL`, GTK `MacTahoe-Dark-purple` |
@@ -32,8 +32,8 @@ cd dotfiles
 ## Cambiar entre claro / oscuro
 
 ```fish
-./glass-reactivities.sh light   # o dark
-./glass-reactivities.sh restore # deshacer
+./glass-effect.sh light   # o dark
+./glass-effect.sh restore # deshacer
 ```
 
 ## Mantener el repo al dia

@@ -2,10 +2,10 @@
 # Woodshed / Reactivities "liquid glass" preset for kwin-effects-glass
 # Reproduces the web effect: edge lens + chromatic aberration + 1px white border + frosted body.
 # Usage:
-#   ./glass-reactivities.sh [auto|light|dark]   apply the preset (default: auto)
-#   ./glass-reactivities.sh backup [label]      snapshot your current desktop config
-#   ./glass-reactivities.sh restore [label]     restore a snapshot (default: newest)
-#   ./glass-reactivities.sh list                list snapshots
+#   ./glass-effect.sh [auto|light|dark]   apply the preset (default: auto)
+#   ./glass-effect.sh backup [label]      snapshot your current desktop config
+#   ./glass-effect.sh restore [label]     restore a snapshot (default: newest)
+#   ./glass-effect.sh list                list snapshots
 #
 #   auto        glass tint follows the colour scheme you already have
 #   light/dark  also switches the COLOUR SCHEME only (plasma-apply-colorscheme), never the
@@ -305,7 +305,7 @@ panels_translucent() {
 }
 
 # ---------------------------------------------------------------- preset
-# Tunables -- override from the shell, e.g.  LENS_BEVEL=9 ./glass-reactivities.sh dark
+# Tunables -- override from the shell, e.g.  LENS_BEVEL=9 ./glass-effect.sh dark
 LENS_EDGE="${LENS_EDGE:-2}"             # x10 px: width of the refracting band at the edge
 LENS_POW="${LENS_POW:-1}"               # /2: falloff steepness (higher = thinner, sharper edge)
 LENS_BEVEL="${LENS_BEVEL:-15}"          # /10: edge lens strength (5..15)
