@@ -19,6 +19,9 @@ sudo pacman -S --needed --noconfirm \
 say "AUR packages (paru): glass, Darkly, Kurve"
 paru -S --needed --noconfirm kwin-effects-glass-git darkly plasma6-applets-kurve-git
 
+say "Pacman hook: warn when KWin is upgraded (glass effect needs 'fixglass')"
+sudo install -Dm644 system/pacman-hooks/kwin-glass-rebuild.hook /etc/pacman.d/hooks/kwin-glass-rebuild.hook
+
 # ------------------------------------------------------------- icons and sounds (from upstream)
 say "MacTahoe purple icons"
 git clone --depth 1 https://github.com/vinceliuice/MacTahoe-icon-theme.git "$TMP/icons"

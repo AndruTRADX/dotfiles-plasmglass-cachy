@@ -1,0 +1,11 @@
+# kwin-effects-glass-git is built against a specific KWin version and stops loading
+# after KWin is upgraded. This hook only warns: a hook cannot run paru (pacman is locked).
+[Trigger]
+Operation = Upgrade
+Type = Package
+Target = kwin
+
+[Action]
+Description = KWin was upgraded: the liquid glass effect needs a rebuild
+When = PostTransaction
+Exec = /usr/bin/echo ">>> KWin upgraded: run 'fixglass' in fish, then log out and back in."

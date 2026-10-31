@@ -14,25 +14,25 @@ cd dotfiles
 ./install.sh
 ```
 
-3. Log out and back in. Done.
+1. Log out and back in. Done.
 
 > Any files that already existed are backed up to `~/.dotfiles-backup/`.
 
 ## What's included
 
 | What | Where |
-|---|---|
+| --- | --- |
 | Liquid glass | `glass-effect.sh` (KWin effect only). Reference values in `kwin-glass.ini` |
 | Sounds | **Wii** sound theme (downloaded from GitHub) |
-| Fish | `home/.config/fish/` (config + functions `cls`, `fixaudio`, `fixmicro`), **pure** prompt |
+| Fish | `home/.config/fish/` (config + PATH + functions `cls`, `fixaudio`, `fixmicro`, `fixglass`), **pure** prompt |
 | Colours | `AppleDarkPurple` / `AppleLightPurple`, Plasma Style `AppleDark-ALL`, GTK `MacTahoe-Dark-purple` |
 | Icons | **MacTahoe-purple-dark** (downloaded from GitHub), `capitaine-cursors` cursor |
-| Extras | MacTahoe window decoration, Darkly widget style, SF Pro font, panels and widgets, Konsole profile |
+| Extras | MacTahoe window decoration, Darkly widget style, SF Pro font, panels and widgets, Konsole profile + `AppleDarkPurple` terminal colours |
 
 ## Scripts
 
 | Script | What it does |
-|---|---|
+| --- | --- |
 | `install.sh` | Installs everything on a new machine |
 | `theme.sh light\|dark` | Switches colours + Plasma Style + panels, then applies the glass |
 | `glass-effect.sh light\|dark` | Liquid glass effect only |
@@ -46,4 +46,11 @@ cd dotfiles
 git add -A; and git commit -m "update"; and git push
 ```
 
-> The SF Pro fonts (`home/.fonts`) belong to Apple: keep this repo **private**.
+## After a KWin upgrade
+
+`kwin-effects-glass-git` is built against a specific KWin version, so it stops loading when KWin is upgraded.
+A pacman hook (`system/pacman-hooks/`) prints a reminder; then run:
+
+```fish
+fixglass   # rebuilds the effect, then log out and back in
+```
