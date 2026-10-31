@@ -40,6 +40,7 @@ cd dotfiles
 | `glass-effect.sh light\|dark` | Liquid glass effect only |
 | `backup.sh` / `backup.sh restore` | Saves / restores the desktop config |
 | `update.sh` | Copies your current config into the repo |
+| `system/setup.sh` | Root tweaks: KWin pacman hook, monthly btrfs scrub, paccache, uinput, i2c group (run by `install.sh`) |
 
 ## Keeping the repo up to date
 

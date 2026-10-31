@@ -19,8 +19,8 @@ sudo pacman -S --needed --noconfirm \
 say "AUR packages (paru): glass, Darkly, Kurve"
 paru -S --needed --noconfirm kwin-effects-glass-git darkly plasma6-applets-kurve-git
 
-say "Pacman hook: warn when KWin is upgraded (glass effect needs 'fixglass')"
-sudo install -Dm644 system/pacman-hooks/kwin-glass-rebuild.hook /etc/pacman.d/hooks/kwin-glass-rebuild.hook
+say "System tweaks: KWin pacman hook, btrfs scrub, paccache, uinput, i2c group"
+sudo ./system/setup.sh
 
 # ------------------------------------------------------------- icons and sounds (from upstream)
 say "MacTahoe purple icons"
