@@ -57,8 +57,17 @@ kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key theme __aurorae__
 kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key ButtonsOnLeft XIA
 kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key ButtonsOnRight ""
 
+# Splash, desktop and lock screen wallpaper (light/dark variants follow the colour scheme)
+kwriteconfig6 --file ksplashrc --group KSplash --key Theme com.github.vinceliuice.MacTahoe-Dark
+WALL="$DATA/wallpapers/MacTahoe"
+kwriteconfig6 --file kscreenlockerrc --group Greeter --key WallpaperPlugin org.kde.image
+kwriteconfig6 --file kscreenlockerrc --group Greeter --group Wallpaper --group org.kde.image --group General --key Image "file://$WALL"
+kwriteconfig6 --file kscreenlockerrc --group Greeter --group Wallpaper --group org.kde.image --group General --key PreviewImage "file://$WALL"
+
 systemctl --user start plasma-plasmashell.service 2>/dev/null || (setsid -f plasmashell >/dev/null 2>&1)
 sleep 3
+
+plasma-apply-wallpaperimage "$WALL" || true
 
 say "Liquid glass"
 ./theme.sh dark
@@ -70,4 +79,5 @@ if [[ "$(getent passwd "$USER" | cut -d: -f7)" != */fish ]]; then
 fi
 
 say "Done. Log out and back in (pick 'Plasma (Wayland)')."
+echo "Login screen: System Settings > Login Screen > 'Apply Plasma Settings' to copy this theme there."
 if [[ -d "$BK" ]]; then echo "Backup of your previous files: $BK"; fi

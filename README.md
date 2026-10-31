@@ -14,7 +14,8 @@ cd dotfiles
 ./install.sh
 ```
 
-1. Log out and back in. Done.
+3. Log out and back in.
+4. Optional: System Settings > Login Screen > **Apply Plasma Settings** so the login screen uses the same theme.
 
 > Any files that already existed are backed up to `~/.dotfiles-backup/`.
 
@@ -27,6 +28,7 @@ cd dotfiles
 | Fish | `home/.config/fish/` (config + PATH + functions `cls`, `fixaudio`, `fixmicro`, `fixglass`), **pure** prompt |
 | Colours | `AppleDarkPurple` / `AppleLightPurple`, Plasma Style `AppleDark-ALL`, GTK `MacTahoe-Dark-purple` |
 | Icons | **MacTahoe-purple-dark** (downloaded from GitHub), `capitaine-cursors` cursor |
+| Wallpaper & splash | MacTahoe wallpaper (light/dark variants) on desktop + lock screen, MacTahoe boot splash |
 | Extras | MacTahoe window decoration, Darkly widget style, SF Pro font, panels and widgets, Konsole profile + `AppleDarkPurple` terminal colours |
 
 ## Scripts

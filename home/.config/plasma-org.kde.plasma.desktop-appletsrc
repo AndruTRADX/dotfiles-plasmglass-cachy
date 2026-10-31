@@ -19,7 +19,7 @@ immutability=1
 lastScreen=0
 location=0
 plugin=org.kde.plasma.folder
-wallpaperplugin=org.kde.slideshow
+wallpaperplugin=org.kde.image
 
 [Containments][43][Applets][101]
 immutability=1
@@ -80,10 +80,10 @@ DialogHeight=1006
 DialogWidth=1912
 
 [Containments][43][Wallpaper][org.kde.image][General]
-Image=/home/andrutradx/Pictures/Wallpapers/2017x2_gif_by_mshvx_dhxuf2o.gif
+Image=file:///home/andrutradx/.local/share/wallpapers/MacTahoe
 
 [Containments][43][Wallpaper][org.kde.slideshow][General]
-Image=file:///home/andrutradx/Pictures/Wallpapers/arknights-amiya.png
+Image=file:///home/andrutradx/.local/share/wallpapers/MacTahoe
 SlideInterval=300
 SlidePaths=/home/andrutradx/Pictures/Wallpapers/
 UncheckedSlides=/home/andrutradx/Pictures/Wallpapers/a_message_to_me_by_cloudsukii_dh7ze2m.jpg,/home/andrutradx/Pictures/Wallpapers/holy_marioentte_new_art_finally_30_by_inkdol_dkjy6lz.jpg,/home/andrutradx/Pictures/Wallpapers/glitch_my_deer_friend_nokotan_5_by_dze9xv7qfc_di1z1l2.png,/home/andrutradx/Pictures/Wallpapers/1290521.jpg,/home/andrutradx/Pictures/Wallpapers/experimental_glitch_3_by_dze9xv7qfc_dj1jyxm.png
@@ -435,6 +435,9 @@ lastScreen=1
 location=0
 plugin=org.kde.plasma.folder
 wallpaperplugin=org.kde.image
+
+[Containments][94][Wallpaper][org.kde.image][General]
+Image=file:///home/andrutradx/.local/share/wallpapers/MacTahoe
 
 [ScreenMapping]
 itemsOnDisabledScreens=
