@@ -134,7 +134,6 @@ ForegroundVisited=191,90,242
 
 [General]
 BrowserApplication=brave-browser.desktop
-ColorScheme=AppleDarkPurple
 ColorSchemeHash=55d3f0564ebc9ba596a68763886b807298495832
 XftAntialias=true
 XftHintStyle=hintnone
@@ -146,15 +145,11 @@ menuFont=SF Pro Text,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0
 smallestReadableFont=SF Pro Text,8,-1,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0
 toolBarFont=SF Pro Text,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1,,0,0
 
-[Icons]
-Theme=MacTahoe-purple-dark
-
 [KDE]
 AnimationDurationFactor=0.25
-LookAndFeelPackage=com.github.vinceliuice.MacTahoe-Dark
+LookAndFeelPackage=com.github.andrutradx.liquidglass-dark
 contrast=4
 frameContrast=0.2
-widgetStyle=Darkly
 
 [KFileDialog Settings]
 Allow Expansion=false

@@ -28,6 +28,7 @@ cd dotfiles
 | Fish | `home/.config/fish/` (config + PATH + functions `cls`, `fixaudio`, `fixmicro`, `fixglass`), **pure** prompt |
 | Colours | `AppleDarkPurple` / `AppleLightPurple`, Plasma Style `AppleDark-ALL`, GTK `MacTahoe-Dark-purple` |
 | Icons | **MacTahoe-purple-dark** (downloaded from GitHub), `capitaine-cursors` cursor |
+| Global Themes | **Liquid Glass Dark** and **Liquid Glass Light** (System Settings > Global Theme). Applying one, even with "Desktop and window layout" ticked, gives back this exact setup; the glass tint follows with `theme.sh` |
 | Wallpaper & splash | MacTahoe wallpaper (light/dark variants) on desktop + lock screen, MacTahoe boot splash |
 | Layout | MacTahoe layout: floating top menu bar (launcher, app menu, tray with trash + disk quota, clock, show desktop, power) and a floating auto-hide dock; desktop widgets: Modern Clock and two Kurve audio visualizers (30 fps, paused behind maximized/fullscreen windows) |
 | Extras | MacTahoe window decoration (tiny borders), Darkly widget style, SF Pro font, Konsole profile + `AppleDarkPurple` terminal colours |
@@ -41,6 +42,7 @@ cd dotfiles
 | `glass-effect.sh light\|dark` | Liquid glass effect only |
 | `backup.sh` / `backup.sh restore` | Saves / restores the desktop config |
 | `update.sh` | Copies your current config into the repo |
+| `make-global-themes.sh` | Rebuilds the **Liquid Glass Dark/Light** Global Themes from the current desktop (run after changing panels or widgets) |
 | `system/setup.sh` | Root tweaks: KWin pacman hook, monthly btrfs scrub, paccache, uinput, i2c group (run by `install.sh`) |
 
 ## Keeping the repo up to date

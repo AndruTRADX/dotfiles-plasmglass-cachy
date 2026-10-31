@@ -1,0 +1,16 @@
+{
+    "KPackageStructure": "Plasma/LookAndFeel",
+    "KPlugin": {
+        "Authors": [ { "Name": "AndruTRADX" } ],
+        "Category": "Global Themes (Plasma 6)",
+        "Description": "Liquid glass (dark): Apple Purple colours, MacTahoe icons and decoration, see-through Plasma Style and the AndruTRADX panel layout",
+        "EnabledByDefault": true,
+        "Id": "com.github.andrutradx.liquidglass-dark",
+        "License": "GPLv3",
+        "Name": "Liquid Glass Dark"
+    },
+    "Keywords": "Desktop;Workspace;Appearance;Look and Feel;Logout;Lock;Suspend;Shutdown;Hibernate;",
+    "X-KDE-fallbackPackage": "org.kde.breeze.desktop",
+    "X-Plasma-APIVersion": "2",
+    "X-Plasma-MainScript": "defaults"
+}

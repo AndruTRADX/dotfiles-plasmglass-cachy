@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Light/dark theme: colour scheme + see-through Plasma Style + translucent panels, then the glass preset.
+# Light/dark theme: Liquid Glass Global Theme + see-through Plasma Style + translucent panels, then the glass preset.
 # Usage: ./theme.sh [auto|light|dark]   (auto = keep the current colour scheme)
 #
 # Colour schemes live in home/.local/share/color-schemes/ (installed by install.sh).
@@ -25,6 +25,11 @@ MODE="${1:-auto}"
 if [[ "$MODE" == auto ]]; then
   MODE="$(detect_mode)"
 else
+  # Our Global Theme for this mode (colours, icons, decoration, splash). -a never touches the panel layout.
+  lnf="com.github.andrutradx.liquidglass-$MODE"
+  if [[ "$(kreadconfig6 --file kdeglobals --group KDE --key LookAndFeelPackage)" != "$lnf" ]]; then
+    plasma-apply-lookandfeel -a "$lnf" >/dev/null || echo "Global Theme '$lnf' not found: run install.sh" >&2
+  fi
   want="$([[ "$MODE" == light ]] && echo "$LIGHT_SCHEME" || echo "$DARK_SCHEME")"
   if [[ "$(kreadconfig6 --file kdeglobals --group General --key ColorScheme)" != "$want" ]]; then
     plasma-apply-colorscheme "$want"
