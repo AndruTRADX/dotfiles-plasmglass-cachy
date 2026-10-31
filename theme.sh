@@ -108,5 +108,8 @@ if (( restart || ${#todo[@]} )); then
   if (( ${#todo[@]} )); then echo "Panels set to Translucent: ${todo[*]}"; fi
 fi
 
-# ---------------------------------------------------------------- glass
+# ---------------------------------------------------------------- glass + GTK apps
 "$DIR/glass-effect.sh" "$MODE"
+sync_gtk "$MODE"
+mkdir -p "${XDG_STATE_HOME:-$HOME/.local/state}/liquid-glass"
+echo "$MODE" > "${XDG_STATE_HOME:-$HOME/.local/state}/liquid-glass/mode"   # so glass-follow.sh does not redo it

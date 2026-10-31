@@ -14,7 +14,7 @@ say() { printf '\n\033[1;35m==> %s\033[0m\n' "$*"; }
 say "Packages (pacman)"
 sudo pacman -S --needed --noconfirm \
   git python fish fisher fish-pure-prompt fish-autopair cachyos-fish-config \
-  capitaine-cursors ttf-jetbrains-mono-nerd
+  capitaine-cursors ttf-jetbrains-mono-nerd bluez-utils
 
 say "AUR packages (paru): glass, Darkly, Kurve"
 paru -S --needed --noconfirm kwin-effects-glass-git darkly plasma6-applets-kurve-git
@@ -57,6 +57,7 @@ kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key theme __aurorae__
 kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key ButtonsOnLeft XIA
 kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key ButtonsOnRight ""
 kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key BorderSize Tiny
+kwriteconfig6 --file kwinrc --group Plugins --key frozenappEnabled false
 
 # Splash, desktop and lock screen wallpaper (light/dark variants follow the colour scheme)
 # Our own Global Theme: colours, icons, cursor, widget style, decoration, Plasma Style, splash
