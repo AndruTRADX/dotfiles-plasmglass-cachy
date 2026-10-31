@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Instala mis dotfiles en una maquina CachyOS + KDE Plasma 6 nueva.
-# Uso: ./install.sh
+# Installs these dotfiles on a fresh CachyOS + KDE Plasma 6 machine.
+# Usage: ./install.sh
 set -euo pipefail
 cd "$(dirname "$(readlink -f "$0")")"
 REPO="$PWD"
@@ -10,29 +10,29 @@ TMP="$(mktemp -d)"; trap 'rm -rf "$TMP"' EXIT
 
 say() { printf '\n\033[1;35m==> %s\033[0m\n' "$*"; }
 
-# ------------------------------------------------------------- paquetes
-say "Paquetes (pacman)"
+# ------------------------------------------------------------- packages
+say "Packages (pacman)"
 sudo pacman -S --needed --noconfirm \
   git python fish fisher fish-pure-prompt fish-autopair cachyos-fish-config \
   capitaine-cursors ttf-jetbrains-mono-nerd
 
-say "Paquetes AUR (paru): glass, Darkly, Kurve"
+say "AUR packages (paru): glass, Darkly, Kurve"
 paru -S --needed --noconfirm kwin-effects-glass-git darkly plasma6-applets-kurve-git
 
-# ------------------------------------------------------------- iconos y sonidos (desde upstream)
-say "Iconos MacTahoe purple"
+# ------------------------------------------------------------- icons and sounds (from upstream)
+say "MacTahoe purple icons"
 git clone --depth 1 https://github.com/vinceliuice/MacTahoe-icon-theme.git "$TMP/icons"
 (cd "$TMP/icons" && ./install.sh -t purple)
 
-say "Sonidos Wii"
+say "Wii sound theme"
 rm -rf "$DATA/sounds/Wii"
 git clone --depth 1 https://github.com/TheBearOfJare/Wii-System-Sounds-for-KDE-Plasma.git "$DATA/sounds/Wii"
 rm -rf "$DATA/sounds/Wii/.git"
 
-# ------------------------------------------------------------- archivos
-say "Copiando archivos a \$HOME (respaldo de lo que exista en ~/.dotfiles-backup)"
+# ------------------------------------------------------------- files
+say "Copying files to \$HOME (existing ones are backed up to ~/.dotfiles-backup)"
 BK="$HOME/.dotfiles-backup/$(date +%Y%m%d-%H%M%S)"
-# plasmashell reescribe su config de paneles al salir: detenerlo antes de copiar
+# plasmashell writes its panel config back on exit: stop it before copying
 systemctl --user stop plasma-plasmashell.service 2>/dev/null || kquitapp6 plasmashell 2>/dev/null || true
 (cd home && find . -type f -o -type l) | while read -r f; do
   f="${f#./}"
@@ -42,8 +42,8 @@ systemctl --user stop plasma-plasmashell.service 2>/dev/null || kquitapp6 plasma
 done
 fc-cache -f >/dev/null
 
-# ------------------------------------------------------------- apariencia
-say "Tema: colores, iconos, cursor, decoracion, sonidos"
+# ------------------------------------------------------------- appearance
+say "Theme: colours, icons, cursor, window decoration, sounds"
 plasma-apply-colorscheme AppleDarkPurple || true
 plasma-apply-cursortheme capitaine-cursors || true
 /usr/lib/plasma-changeicons MacTahoe-purple-dark 2>/dev/null || true
@@ -62,9 +62,9 @@ say "Liquid glass"
 
 # ------------------------------------------------------------- shell
 if [[ "$(getent passwd "$USER" | cut -d: -f7)" != */fish ]]; then
-  say "Fish como shell por defecto"
+  say "Setting fish as the default shell"
   chsh -s "$(command -v fish)"
 fi
 
-say "Listo. Cierra sesion y vuelve a entrar (elige 'Plasma (Wayland)')."
-if [[ -d "$BK" ]]; then echo "Respaldo de tus archivos anteriores: $BK"; fi
+say "Done. Log out and back in (pick 'Plasma (Wayland)')."
+if [[ -d "$BK" ]]; then echo "Backup of your previous files: $BK"; fi

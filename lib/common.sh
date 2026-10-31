@@ -1,4 +1,4 @@
-# Funciones compartidas. Se carga con: source "$(dirname "$0")/lib/common.sh"
+# Shared helpers. Load with: source "$(dirname "$0")/lib/common.sh"
 CFG="${XDG_CONFIG_HOME:-$HOME/.config}"
 DATA="${XDG_DATA_HOME:-$HOME/.local/share}"
 QDBUS="$(command -v qdbus6 || command -v qdbus-qt6 || command -v qdbus || true)"

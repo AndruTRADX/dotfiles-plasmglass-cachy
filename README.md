@@ -1,49 +1,49 @@
 # dotfiles
 
-Mi CachyOS + KDE Plasma 6: liquid glass, sonidos Wii, fish, colores Apple Purple, iconos MacTahoe.
+My CachyOS + KDE Plasma 6 setup: liquid glass, Wii sounds, fish, Apple Purple colours, MacTahoe icons.
 
-## Instalar en una maquina nueva
+## Install on a new machine
 
-1. Instala CachyOS con **KDE Plasma** y **fish** (lo que trae por defecto).
-2. Entra a tu sesion y abre una terminal:
+1. Install CachyOS with **KDE Plasma** and **fish** (the defaults).
+2. Log in and open a terminal:
 
 ```fish
 mkdir -p ~/Code && cd ~/Code
-git clone <URL-de-este-repo> dotfiles
+git clone <repo-url> dotfiles
 cd dotfiles
 ./install.sh
 ```
 
-3. Cierra sesion y vuelve a entrar. Listo.
+3. Log out and back in. Done.
 
-> Lo que tenias antes se respalda en `~/.dotfiles-backup/`.
+> Any files that already existed are backed up to `~/.dotfiles-backup/`.
 
-## Que incluye
+## What's included
 
-| Que | Donde |
+| What | Where |
 |---|---|
-| Liquid glass | `glass-effect.sh` (solo el efecto de KWin). Valores de referencia en `kwin-glass.ini` |
-| Sonidos | Tema **Wii** (se descarga de GitHub) |
-| Fish | `home/.config/fish/` (config + funciones `cls`, `fixaudio`, `fixmicro`), prompt **pure** |
-| Colores | `AppleDarkPurple` / `AppleLightPurple`, Plasma Style `AppleDark-ALL`, GTK `MacTahoe-Dark-purple` |
-| Iconos | **MacTahoe-purple-dark** (se descarga de GitHub), cursor `capitaine-cursors` |
-| Extra | Decoracion de ventanas MacTahoe, estilo Darkly, fuente SF Pro, paneles y widgets, perfil de Konsole |
+| Liquid glass | `glass-effect.sh` (KWin effect only). Reference values in `kwin-glass.ini` |
+| Sounds | **Wii** sound theme (downloaded from GitHub) |
+| Fish | `home/.config/fish/` (config + functions `cls`, `fixaudio`, `fixmicro`), **pure** prompt |
+| Colours | `AppleDarkPurple` / `AppleLightPurple`, Plasma Style `AppleDark-ALL`, GTK `MacTahoe-Dark-purple` |
+| Icons | **MacTahoe-purple-dark** (downloaded from GitHub), `capitaine-cursors` cursor |
+| Extras | MacTahoe window decoration, Darkly widget style, SF Pro font, panels and widgets, Konsole profile |
 
 ## Scripts
 
-| Script | Que hace |
+| Script | What it does |
 |---|---|
-| `install.sh` | Instala todo en una maquina nueva |
-| `theme.sh light\|dark` | Cambia colores + estilo de Plasma + paneles, y aplica el glass |
-| `glass-effect.sh light\|dark` | Solo el efecto liquid glass |
-| `backup.sh` / `backup.sh restore` | Guarda / restaura la config del escritorio |
-| `update.sh` | Copia tu config actual al repo |
+| `install.sh` | Installs everything on a new machine |
+| `theme.sh light\|dark` | Switches colours + Plasma Style + panels, then applies the glass |
+| `glass-effect.sh light\|dark` | Liquid glass effect only |
+| `backup.sh` / `backup.sh restore` | Saves / restores the desktop config |
+| `update.sh` | Copies your current config into the repo |
 
-## Mantener el repo al dia
+## Keeping the repo up to date
 
 ```fish
 ./update.sh
 git add -A; and git commit -m "update"; and git push
 ```
 
-> Las fuentes SF Pro (`home/.fonts`) son de Apple: deja el repo **privado**.
+> The SF Pro fonts (`home/.fonts`) belong to Apple: keep this repo **private**.
