@@ -58,7 +58,7 @@ systemctl --user start plasma-plasmashell.service 2>/dev/null || (setsid -f plas
 sleep 3
 
 say "Liquid glass"
-./glass-effect.sh dark
+./theme.sh dark
 
 # ------------------------------------------------------------- shell
 if [[ "$(getent passwd "$USER" | cut -d: -f7)" != */fish ]]; then

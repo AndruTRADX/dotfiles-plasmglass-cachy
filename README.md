@@ -22,19 +22,22 @@ cd dotfiles
 
 | Que | Donde |
 |---|---|
-| Liquid glass | `glass-effect.sh` (instala `kwin-effects-glass-git` y aplica el preset). Valores exactos de referencia en `kwin-glass.ini` |
+| Liquid glass | `glass-effect.sh` (solo el efecto de KWin). Valores de referencia en `kwin-glass.ini` |
 | Sonidos | Tema **Wii** (se descarga de GitHub) |
 | Fish | `home/.config/fish/` (config + funciones `cls`, `fixaudio`, `fixmicro`), prompt **pure** |
 | Colores | `AppleDarkPurple` / `AppleLightPurple`, Plasma Style `AppleDark-ALL`, GTK `MacTahoe-Dark-purple` |
 | Iconos | **MacTahoe-purple-dark** (se descarga de GitHub), cursor `capitaine-cursors` |
 | Extra | Decoracion de ventanas MacTahoe, estilo Darkly, fuente SF Pro, paneles y widgets, perfil de Konsole |
 
-## Cambiar entre claro / oscuro
+## Scripts
 
-```fish
-./glass-effect.sh light   # o dark
-./glass-effect.sh restore # deshacer
-```
+| Script | Que hace |
+|---|---|
+| `install.sh` | Instala todo en una maquina nueva |
+| `theme.sh light\|dark` | Cambia colores + estilo de Plasma + paneles, y aplica el glass |
+| `glass-effect.sh light\|dark` | Solo el efecto liquid glass |
+| `backup.sh` / `backup.sh restore` | Guarda / restaura la config del escritorio |
+| `update.sh` | Copia tu config actual al repo |
 
 ## Mantener el repo al dia
 
