@@ -9,10 +9,11 @@ set -euo pipefail
 cd "$(dirname "$(readlink -f "$0")")"
 OUT="home/.local/share/plasma/look-and-feel"
 SRC_DARK="$HOME/.local/share/plasma/look-and-feel/com.github.vinceliuice.MacTahoe-Dark"
-QDBUS="$(command -v qdbus6 || command -v qdbus-qt6 || command -v qdbus)"
 TMP="$(mktemp -d)"; trap 'rm -rf "$TMP"' EXIT
+source lib/common.sh
+[[ -n "$QDBUS" ]] || { echo "qdbus not found" >&2; exit 1; }
 
-git clone -q --depth 1 https://github.com/vinceliuice/MacTahoe-kde.git "$TMP/mactahoe"
+clone_pinned "$MACTAHOE_KDE_URL" "$MACTAHOE_KDE_REV" "$TMP/mactahoe"
 SRC_LIGHT="$TMP/mactahoe/plasma/look-and-feel/com.github.vinceliuice.MacTahoe-Light"
 [[ -d "$SRC_DARK" ]] || SRC_DARK="$TMP/mactahoe/plasma/look-and-feel/com.github.vinceliuice.MacTahoe-Dark"
 
@@ -24,21 +25,25 @@ SRC_LIGHT="$TMP/mactahoe/plasma/look-and-feel/com.github.vinceliuice.MacTahoe-Li
 sed -i "s|\"file://$HOME/|\"file://\" + userDataPath() + \"/|g" "$TMP/layout.js"
 cat >> "$TMP/layout.js" <<'JS'
 
-// Desktop widget positions (x,y,width,height) inside the area left free by the panels.
+// Desktop widget positions (x,y,width,height) inside the area left free by the panels,
+// computed from the screen size so the layout also fits resolutions other than 1920x1080.
+var PANELS_HEIGHT = 136;   // top bar + dock: screen height minus the free desktop area
 desktops().forEach(function (d) {
     var geo = [];
+    var r = screenGeometry(d.screen);
+    var W = Math.round(r.width), H = Math.round(r.height) - PANELS_HEIGHT;
     d.widgets().forEach(function (w) {
         var g = null;
         if (w.type === "com.github.prayag2.modernclock") {
-            g = "656,736,640,160";
+            g = (Math.round(W / 2) - 304) + "," + (H - 208) + ",640,160";
         } else if (w.type === "luisbocanegra.audio.visualizer") {
             w.currentConfigGroup = ["General"];
-            g = (w.readConfig("orientation", "2") == "3") ? "1760,0,160,944" : "0,0,160,944";
+            g = ((w.readConfig("orientation", "2") == "3") ? (W - 160) : 0) + ",0,160," + H;
         }
         if (g) geo.push("Applet-" + w.id + ":" + g + ",0");
     });
     d.currentConfigGroup = [];
-    d.writeConfig("ItemGeometries-1920x1080", geo.join(";") + ";");
+    d.writeConfig("ItemGeometries-" + Math.round(r.width) + "x" + Math.round(r.height), geo.join(";") + ";");
     d.writeConfig("ItemGeometriesHorizontal", geo.join(";") + ";");
     d.reloadConfig();
 });

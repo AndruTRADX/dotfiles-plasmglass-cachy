@@ -24,6 +24,13 @@ if pacman -Q openlinkhub &>/dev/null; then
   systemctl restart openlinkhub.service
 fi
 
+say "sched-ext scheduler: scx_lavd (lower latency for desktop and games)"
+if command -v scx_loader &>/dev/null; then
+  install -Dm644 scx_loader.toml /etc/scx_loader.toml
+  systemctl enable scx_loader.service
+  systemctl restart scx_loader.service
+fi
+
 say "Monthly btrfs scrub of / (detects silent data corruption)"
 systemctl enable --now btrfs-scrub@-.timer
 

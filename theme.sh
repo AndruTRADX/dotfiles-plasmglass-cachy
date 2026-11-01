@@ -42,13 +42,23 @@ fi
 
 # ---------------------------------------------------------------- see-through Plasma Style
 # The style paints its own dark background under Glass's tint; build "<style>-Glass" with it faded out.
+# Rebuilt only when the source style, glassify.py or STYLE_BG_KEEP changed (stamp file), so
+# re-running theme.sh does not restart plasmashell for nothing.
+rebuilt=0
 if [[ "$GLASS_STYLE" == true && "$PLASMA_STYLE" != keep && "$PLASMA_STYLE" != *-Glass ]]; then
   root="$DATA/plasma/desktoptheme"; new="$PLASMA_STYLE-Glass"; src=""
   for f in "$root/$PLASMA_STYLE" "/usr/share/plasma/desktoptheme/$PLASMA_STYLE"; do
     if [[ -d "$f" ]]; then src="$f"; break; fi
   done
+  stamp=""
+  if [[ -n "$src" ]]; then
+    stamp="$( { printf '%s\n' "$src" "$STYLE_BG_KEEP"; cat "$DIR/lib/glassify.py"
+                find "$src" -type f -printf '%T@ %s %P\n' | sort; } | sha1sum | cut -d' ' -f1)"
+  fi
   if [[ -z "$src" ]]; then
     echo "Plasma Style '$PLASMA_STYLE' not found: skipping the see-through copy." >&2
+  elif [[ -f "$root/$new/.glass-stamp" && "$(<"$root/$new/.glass-stamp")" == "$stamp" ]]; then
+    PLASMA_STYLE="$new"   # already up to date
   else
     rm -rf -- "${root:?}/$new"; mkdir -p "$root"; cp -a "$src" "$root/$new"
     [[ -f "$root/$new/metadata.desktop" ]] && sed -i -e "s/^Name=.*/Name=$new/" -e "s/^X-KDE-PluginInfo-Name=.*/X-KDE-PluginInfo-Name=$new/" "$root/$new/metadata.desktop"
@@ -65,8 +75,9 @@ if [[ "$GLASS_STYLE" == true && "$PLASMA_STYLE" != keep && "$PLASMA_STYLE" != *-
       rm -rf -- "${root:?}/$new"; echo "Nothing to fade in '$PLASMA_STYLE': keeping it." >&2
     else
       rm -f "${XDG_CACHE_HOME:-$HOME/.cache}"/plasma-svgelements-"$new"* "${XDG_CACHE_HOME:-$HOME/.cache}"/plasma_theme_"$new"*.kcache
+      echo "$stamp" > "$root/$new/.glass-stamp"
       echo "Built see-through Plasma Style '$new' ($n backgrounds)."
-      PLASMA_STYLE="$new"
+      PLASMA_STYLE="$new"; rebuilt=1
     fi
   fi
 fi
@@ -75,7 +86,7 @@ fi
 restart=0
 if [[ "$PLASMA_STYLE" != keep ]]; then
   if [[ "$(kreadconfig6 --file plasmarc --group Theme --key name)" == "$PLASMA_STYLE" ]]; then
-    restart=1   # already active: plasmashell caches it, restart to pick up the new files
+    restart=$rebuilt   # already active: plasmashell caches it, restart only if its files changed
   else
     plasma-apply-desktoptheme "$PLASMA_STYLE" >/dev/null \
       || echo "Plasma Style '$PLASMA_STYLE' not found (plasma-apply-desktoptheme --list-themes)" >&2

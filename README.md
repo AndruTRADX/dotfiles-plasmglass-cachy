@@ -30,8 +30,9 @@ cd dotfiles
 | Icons | **MacTahoe-purple-dark** (downloaded from GitHub), `capitaine-cursors` cursor |
 | Global Themes | **Liquid Glass Dark** and **Liquid Glass Light** (System Settings > Global Theme). Applying one, even with "Desktop and window layout" ticked, gives back this exact setup; the glass tint follows automatically (`glass-follow.sh`) |
 | Wallpaper & splash | MacTahoe wallpaper (light/dark variants) on desktop + lock screen, MacTahoe boot splash |
-| Layout | MacTahoe layout: floating top menu bar (launcher, app menu, tray with trash + disk quota, clock, show desktop, power) and a floating auto-hide dock; desktop widgets: Modern Clock and two Kurve audio visualizers (30 fps, paused behind maximized/fullscreen windows) |
+| Layout | MacTahoe layout: floating top menu bar (launcher, app menu, tray with trash + disk quota, clock, show desktop, power) and a floating auto-hide dock; desktop widgets: Modern Clock and two Kurve audio visualizers (20 fps, paused behind maximized/fullscreen windows) |
 | Bluetooth media buttons | `system/setup.sh` lets bluetoothd create the AVRCP input device; `install.sh` enables the `mpris-proxy` user service (bluez-utils) so headphones know whether something is playing and send Play or Pause correctly |
+| Performance | `scx_lavd` scheduler (`system/scx_loader.toml`), 12 GB NVIDIA shader cache (`home/.config/environment.d/`), hardware video decoding in Brave (`home/.config/brave-flags.conf`), weekly paru cache cleanup (`paru-cache-clean.timer`) |
 | Extras | MacTahoe window decoration (tiny borders), Darkly widget style, SF Pro font, Konsole profile + `AppleDarkPurple` terminal colours |
 
 ## Scripts
@@ -45,7 +46,7 @@ cd dotfiles
 | `update.sh` | Copies your current config into the repo |
 | `glass-follow.sh` | Run by the `liquid-glass-follow.path` user unit whenever `kdeglobals` changes: switching the Global Theme or colour scheme in System Settings also switches the glass tint |
 | `make-global-themes.sh` | Rebuilds the **Liquid Glass Dark/Light** Global Themes from the current desktop (run after changing panels or widgets) |
-| `system/setup.sh` | Root tweaks: KWin pacman hook, monthly btrfs scrub, paccache, uinput, i2c group (run by `install.sh`) |
+| `system/setup.sh` | Root tweaks: KWin pacman hook, scx_lavd scheduler, monthly btrfs scrub, paccache, uinput, i2c group (run by `install.sh`) |
 
 ## Keeping the repo up to date
 
@@ -62,3 +63,13 @@ A pacman hook (`system/pacman-hooks/`) prints a reminder; then run:
 ```fish
 fixglass   # rebuilds the effect, then log out and back in
 ```
+
+## Games (Steam)
+
+Steam has no global launch options, so set this per game (right click > Properties > Launch Options):
+
+```
+game-performance %command%
+```
+
+It switches the power profile to *performance* while the game runs and back to *balanced* when it closes (`game-performance` ships with CachyOS).

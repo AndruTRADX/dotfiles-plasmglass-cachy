@@ -13,7 +13,7 @@ KEEP_AUTO=10
 FILES=(
   kwinrc kdeglobals plasmarc kcminputrc ksplashrc kscreenlockerrc
   plasma-org.kde.plasma.desktop-appletsrc plasmashellrc
-  auroraerc breezerc klassyrc darklyrc lightlyrc
+  auroraerc breezerc darklyrc
   Kvantum/kvantum.kvconfig
 )
 

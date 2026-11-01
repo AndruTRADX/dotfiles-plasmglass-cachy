@@ -49,3 +49,18 @@ sync_gtk() {  # $1 = light|dark
     if [[ -n "$icons" ]]; then gsettings set org.gnome.desktop.interface icon-theme "$icons" || true; fi
   fi
 }
+
+# Upstream repos are pinned to a known-good commit so a fresh install looks the same as this one.
+# Bump the hash (git ls-remote <url> HEAD) after checking a newer version works.
+MACTAHOE_ICONS_URL=https://github.com/vinceliuice/MacTahoe-icon-theme.git
+MACTAHOE_ICONS_REV=839848b9a8a38a92a6936e30c4abe35cc6f2546d
+WII_SOUNDS_URL=https://github.com/TheBearOfJare/Wii-System-Sounds-for-KDE-Plasma.git
+WII_SOUNDS_REV=23a840e29784257a70735f788e731a6194f5fc06
+MACTAHOE_KDE_URL=https://github.com/vinceliuice/MacTahoe-kde.git
+MACTAHOE_KDE_REV=cbf6a1f71b591d143184855d62f6272ce533e7c3
+
+clone_pinned() {  # $1 = url, $2 = commit, $3 = destination
+  git init -q "$3"
+  git -C "$3" fetch -q --depth 1 "$1" "$2"
+  git -C "$3" checkout -q FETCH_HEAD
+}

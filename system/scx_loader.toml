@@ -1,0 +1,5 @@
+# sched-ext scheduler started at boot by scx_loader.service (CachyOS).
+# scx_lavd: latency-aware, built for gaming/interactive desktops on hybrid (P/E-core) CPUs.
+# "Auto" lets it switch between performance and power saving on its own.
+default_sched = "scx_lavd"
+default_mode = "Auto"

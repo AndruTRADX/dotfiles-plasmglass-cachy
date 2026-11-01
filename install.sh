@@ -7,6 +7,7 @@ REPO="$PWD"
 CFG="${XDG_CONFIG_HOME:-$HOME/.config}"
 DATA="${XDG_DATA_HOME:-$HOME/.local/share}"
 TMP="$(mktemp -d)"; trap 'rm -rf "$TMP"' EXIT
+source lib/common.sh
 
 say() { printf '\n\033[1;35m==> %s\033[0m\n' "$*"; }
 
@@ -25,12 +26,12 @@ sudo ./system/setup.sh
 
 # ------------------------------------------------------------- icons and sounds (from upstream)
 say "MacTahoe purple icons"
-git clone --depth 1 https://github.com/vinceliuice/MacTahoe-icon-theme.git "$TMP/icons"
+clone_pinned "$MACTAHOE_ICONS_URL" "$MACTAHOE_ICONS_REV" "$TMP/icons"
 (cd "$TMP/icons" && ./install.sh -t purple)
 
 say "Wii sound theme"
 rm -rf "$DATA/sounds/Wii"
-git clone --depth 1 https://github.com/TheBearOfJare/Wii-System-Sounds-for-KDE-Plasma.git "$DATA/sounds/Wii"
+clone_pinned "$WII_SOUNDS_URL" "$WII_SOUNDS_REV" "$DATA/sounds/Wii"
 rm -rf "$DATA/sounds/Wii/.git"
 
 # ------------------------------------------------------------- files
@@ -80,6 +81,9 @@ say "Liquid glass"
 say "Glass tint follows the Global Theme (light/dark) automatically"
 systemctl --user daemon-reload
 systemctl --user enable --now liquid-glass-follow.path
+
+say "Weekly cleanup of the paru build cache"
+systemctl --user enable --now paru-cache-clean.timer
 
 say "Bluetooth headphones: report play/pause state so one button toggles correctly"
 systemctl --user enable --now mpris-proxy.service

@@ -28,7 +28,7 @@ var layout = {
                             "barColors": "{\"alpha\":1,\"colorsOrientation\":0,\"custom\":\"#ffffff\",\"enabled\":false,\"followColor\":0,\"hueEnd\":360,\"hueStart\":0,\"image\":{\"fillMode\":2,\"source\":\"\"},\"lightness\":0.5,\"lightnessEnabled\":false,\"list\":[\"#ED8796\",\"#A6DA95\",\"#EED49F\",\"#8AADF4\",\"#F5BDE6\",\"#8BD5CA\",\"#f5a97f\"],\"reverseList\":false,\"saturation\":0.5,\"saturationEnabled\":false,\"smoothGradient\":true,\"sourceType\":0,\"systemColor\":\"highlightColor\",\"systemColorSet\":\"Window\"}",
                             "desktopWidgetBg": "4",
                             "disableLeftClick": "true",
-                            "framerate": "30",
+                            "framerate": "20",
                             "hideToolTip": "true",
                             "inactiveBlockColors": "{\"alpha\":0.3,\"colorsOrientation\":0,\"custom\":\"#013eff\",\"enabled\":false,\"followColor\":0,\"hueEnd\":360,\"hueStart\":0,\"image\":{\"fillMode\":2,\"source\":\"\"},\"lightness\":0.5,\"lightnessEnabled\":false,\"list\":[\"#ED8796\",\"#A6DA95\",\"#EED49F\",\"#8AADF4\",\"#F5BDE6\",\"#8BD5CA\",\"#f5a97f\"],\"reverseList\":false,\"saturation\":0.5,\"saturationEnabled\":false,\"smoothGradient\":true,\"sourceType\":1,\"systemColor\":\"textColor\",\"systemColorSet\":\"Window\"}",
                             "orientation": "2",
@@ -59,7 +59,7 @@ var layout = {
                             "barColors": "{\"alpha\":1,\"colorsOrientation\":0,\"custom\":\"#ffffff\",\"enabled\":false,\"followColor\":0,\"hueEnd\":360,\"hueStart\":0,\"image\":{\"fillMode\":2,\"source\":\"\"},\"lightness\":0.5,\"lightnessEnabled\":false,\"list\":[\"#ED8796\",\"#A6DA95\",\"#EED49F\",\"#8AADF4\",\"#F5BDE6\",\"#8BD5CA\",\"#f5a97f\"],\"reverseList\":false,\"saturation\":0.5,\"saturationEnabled\":false,\"smoothGradient\":true,\"sourceType\":0,\"systemColor\":\"highlightColor\",\"systemColorSet\":\"Window\"}",
                             "desktopWidgetBg": "4",
                             "disableLeftClick": "true",
-                            "framerate": "30",
+                            "framerate": "20",
                             "hideToolTip": "true",
                             "inactiveBlockColors": "{\"alpha\":0.3,\"colorsOrientation\":0,\"custom\":\"#013eff\",\"enabled\":false,\"followColor\":0,\"hueEnd\":360,\"hueStart\":0,\"image\":{\"fillMode\":2,\"source\":\"\"},\"lightness\":0.5,\"lightnessEnabled\":false,\"list\":[\"#ED8796\",\"#A6DA95\",\"#EED49F\",\"#8AADF4\",\"#F5BDE6\",\"#8BD5CA\",\"#f5a97f\"],\"reverseList\":false,\"saturation\":0.5,\"saturationEnabled\":false,\"smoothGradient\":true,\"sourceType\":1,\"systemColor\":\"textColor\",\"systemColorSet\":\"Window\"}",
                             "orientation": "3",
@@ -220,21 +220,25 @@ var layout = {
 plasma.loadSerializedLayout(layout);
 
 
-// Desktop widget positions (x,y,width,height) inside the area left free by the panels.
+// Desktop widget positions (x,y,width,height) inside the area left free by the panels,
+// computed from the screen size so the layout also fits resolutions other than 1920x1080.
+var PANELS_HEIGHT = 136;   // top bar + dock: screen height minus the free desktop area
 desktops().forEach(function (d) {
     var geo = [];
+    var r = screenGeometry(d.screen);
+    var W = Math.round(r.width), H = Math.round(r.height) - PANELS_HEIGHT;
     d.widgets().forEach(function (w) {
         var g = null;
         if (w.type === "com.github.prayag2.modernclock") {
-            g = "656,736,640,160";
+            g = (Math.round(W / 2) - 304) + "," + (H - 208) + ",640,160";
         } else if (w.type === "luisbocanegra.audio.visualizer") {
             w.currentConfigGroup = ["General"];
-            g = (w.readConfig("orientation", "2") == "3") ? "1760,0,160,944" : "0,0,160,944";
+            g = ((w.readConfig("orientation", "2") == "3") ? (W - 160) : 0) + ",0,160," + H;
         }
         if (g) geo.push("Applet-" + w.id + ":" + g + ",0");
     });
     d.currentConfigGroup = [];
-    d.writeConfig("ItemGeometries-1920x1080", geo.join(";") + ";");
+    d.writeConfig("ItemGeometries-" + Math.round(r.width) + "x" + Math.round(r.height), geo.join(";") + ";");
     d.writeConfig("ItemGeometriesHorizontal", geo.join(";") + ";");
     d.reloadConfig();
 });

@@ -25,7 +25,7 @@ TINT_LIGHT="${TINT_LIGHT:-#B0FFFFFF}"   # #AARRGGBB
 TINT_DARK="${TINT_DARK:-#A018181B}"
 TINT_MIN="${TINT_MIN:-60}"              # adaptive tint: % of the tint kept over a similar backdrop
 BODY_REFRACTION="${BODY_REFRACTION:-true}"  # true = refract the whole surface, not just the edge
-LENS_WINDOWS="${LENS_WINDOWS:-true}"        # true = also bend the backdrop behind normal windows
+LENS_WINDOWS="${LENS_WINDOWS:-false}"       # true = also bend the backdrop behind normal windows (costs GPU on every repaint)
 CONTRAST_EFFECT="${CONTRAST_EFFECT:-off}"   # off = disable KWin's Background Contrast (extra dark tint)
 
 MODE="${1:-auto}"

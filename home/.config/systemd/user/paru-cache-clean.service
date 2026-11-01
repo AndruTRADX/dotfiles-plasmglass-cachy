@@ -1,0 +1,9 @@
+[Unit]
+Description=Remove built packages and downloaded sources from the paru build cache
+
+[Service]
+Type=oneshot
+# Keeps PKGBUILDs and git clones (paru diffs against them); skips anything touched in the last
+# hour so a build in progress is never affected.
+ExecStart=/usr/bin/find %h/.cache/paru/clone -mindepth 2 -maxdepth 2 -type f -mmin +60 ( -name "*.pkg.tar.*" -o -name "*.deb" -o -name "*.rpm" -o -name "*.AppImage" -o -name "*.zip" -o -name "*.tar.gz" -o -name "*.tar.xz" -o -name "*.tar.bz2" -o -name "*.tar.zst" ) -delete
+ExecStart=/usr/bin/find %h/.cache/paru/clone -mindepth 2 -maxdepth 2 -type d -mmin +60 ( -name src -o -name pkg ) -exec rm -rf {} +
