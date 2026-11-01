@@ -12,6 +12,18 @@ say "Pacman hooks: warn when KWin is upgraded (glass needs 'fixglass'); re-enabl
 install -Dm644 pacman-hooks/kwin-glass-rebuild.hook /etc/pacman.d/hooks/kwin-glass-rebuild.hook
 install -Dm644 pacman-hooks/openlinkhub-reenable.hook /etc/pacman.d/hooks/openlinkhub-reenable.hook
 
+say "OpenLinkHub (Corsair fans/RGB, web UI at http://127.0.0.1:27003)"
+if pacman -Q openlinkhub &>/dev/null; then
+  # Its udev rule only applies to devices plugged in after install: re-apply it to the
+  # Corsair devices already connected, or the service can't open them until a reboot.
+  udevadm control --reload
+  udevadm trigger --subsystem-match=usb --attr-match=idVendor=1b1c
+  udevadm trigger --subsystem-match=hidraw
+  udevadm settle
+  systemctl enable openlinkhub.service
+  systemctl restart openlinkhub.service
+fi
+
 say "Monthly btrfs scrub of / (detects silent data corruption)"
 systemctl enable --now btrfs-scrub@-.timer
 

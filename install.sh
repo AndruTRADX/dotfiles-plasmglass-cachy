@@ -14,12 +14,13 @@ say() { printf '\n\033[1;35m==> %s\033[0m\n' "$*"; }
 say "Packages (pacman)"
 sudo pacman -S --needed --noconfirm \
   git python fish fisher fish-pure-prompt fish-autopair cachyos-fish-config \
-  capitaine-cursors ttf-jetbrains-mono-nerd bluez-utils
+  capitaine-cursors ttf-jetbrains-mono-nerd bluez-utils paru \
+  openlinkhub
 
 say "AUR packages (paru): glass, Darkly, Kurve"
 paru -S --needed --noconfirm kwin-effects-glass-git darkly plasma6-applets-kurve-git
 
-say "System tweaks: KWin pacman hook, btrfs scrub, paccache, uinput, i2c group"
+say "System tweaks: pacman hooks, OpenLinkHub, btrfs scrub, paccache, uinput, i2c group"
 sudo ./system/setup.sh
 
 # ------------------------------------------------------------- icons and sounds (from upstream)
