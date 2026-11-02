@@ -65,6 +65,15 @@ check "Wi-Fi regulatory domain pinned (/etc/iw-regdomain)" "sudo ./system/setup.
 check "uinput module loaded" "sudo modprobe uinput" test -e /dev/uinput
 check "$USER in the i2c group" "sudo ./system/setup.sh, then log out and back in" \
   bash -c 'id -nG | tr " " "\n" | grep -qx i2c'
+if grep -qx 'it8[0-9]*' /sys/class/hwmon/hwmon*/name 2>/dev/null; then ok "Motherboard sensors (it87): fans and voltages visible"
+else warn "No motherboard sensors (it87)  ->  sudo ./system/setup.sh"; fi
+olh=/var/lib/openlinkhub/config.json
+if [[ -r "$olh" ]]; then
+  bus="$(python3 -c 'import json,sys; c=json.load(open(sys.argv[1])); print(c["memorySmBus"] if c.get("memory") else "")' "$olh" 2>/dev/null)"
+  if [[ -z "$bus" ]]; then warn "OpenLinkHub RAM RGB off  ->  sudo ./system/setup.sh"
+  elif grep -q '^SMBus I801' "/sys/bus/i2c/devices/$bus/name" 2>/dev/null; then ok "OpenLinkHub RAM RGB on $bus"
+  else bad "OpenLinkHub RAM RGB points at $bus, which is not the SMBus any more  ->  sudo ./system/setup.sh"; fi
+fi
 failed_sys="$(systemctl --failed --no-legend --plain | awk '{print $1}' | xargs)"
 if [[ -z "$failed_sys" ]]; then ok "No failed system units"; else bad "Failed system units: $failed_sys"; fi
 

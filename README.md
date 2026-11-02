@@ -34,6 +34,7 @@ cd dotfiles
 | Bluetooth media buttons | `system/setup.sh` lets bluetoothd create the AVRCP input device; `install.sh` enables the `mpris-proxy` user service (bluez-utils) so headphones know whether something is playing and send Play or Pause correctly |
 | Performance | `scx_lavd` scheduler (`system/scx_loader.toml`), 12 GB NVIDIA shader cache (`home/.config/environment.d/`), hardware video decoding in Brave (`home/.config/brave-flags.conf`), weekly paru cache cleanup (`paru-cache-clean.timer`), proxy auto-detection (`wpad_detector`) off |
 | File search | Baloo indexing on (file names + contents of your home, hidden folders skipped): search files from KRunner, the launcher and Dolphin |
+| Hardware | Motherboard fans/voltages via `it87` (ITE chips on Gigabyte boards), Corsair RAM RGB in OpenLinkHub (SMBus and SKU detected by `system/setup.sh`) |
 | Extras | MacTahoe window decoration (tiny borders), Darkly widget style, SF Pro font, Konsole profile + `AppleDarkPurple` terminal colours |
 
 ## Scripts
@@ -49,7 +50,7 @@ cd dotfiles
 | `doctor.sh` | Read-only health check: glass loaded, tint and Plasma Style match the mode, user/system services, Wi-Fi regdomain, VRR. Prints a fix for each failure |
 | `glass-check.sh` | Run at login by `glass-check.service`: if Glass did not load (KWin upgraded), shows a notification with a **Rebuild now** button that runs `fixglass` |
 | `make-global-themes.sh` | Rebuilds the **Liquid Glass Dark/Light** Global Themes from the current desktop (run after changing panels or widgets) |
-| `system/setup.sh` | Root tweaks: KWin pacman hook, scx_lavd scheduler, Wi-Fi regulatory domain (`/etc/iw-regdomain`, from the timezone or `sudo COUNTRY=XX`), monthly btrfs scrub, paccache, uinput, i2c group (run by `install.sh`) |
+| `system/setup.sh` | Root tweaks: KWin pacman hook, scx_lavd scheduler, Wi-Fi regulatory domain (`/etc/iw-regdomain`, from the timezone or `sudo COUNTRY=XX`), it87 sensors, OpenLinkHub RAM RGB, monthly btrfs scrub, paccache, uinput, i2c group (run by `install.sh`) |
 
 ## Keeping the repo up to date
 

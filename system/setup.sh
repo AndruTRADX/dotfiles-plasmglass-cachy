@@ -20,8 +20,34 @@ if pacman -Q openlinkhub &>/dev/null; then
   udevadm trigger --subsystem-match=usb --attr-match=idVendor=1b1c
   udevadm trigger --subsystem-match=hidraw
   udevadm settle
+
+  # RAM RGB: OpenLinkHub talks to the DIMMs' RGB controllers over the Intel SMBus (i2c-dev).
+  # It needs the i2c group, the right bus, and the SKU (the BIOS's SPD Write Disable hides it).
+  smbus="$(grep -l '^SMBus I801' /sys/bus/i2c/devices/i2c-*/name 2>/dev/null | head -1 | xargs -r dirname | xargs -r basename)"
+  sku="$(udevadm info /sys/devices/virtual/dmi/id 2>/dev/null | sed -n 's/^E: MEMORY_DEVICE_[0-9]*_PART_NUMBER=\(CM[A-Z0-9]*\)$/\1/p' | head -1)"
+  ddr="$(udevadm info /sys/devices/virtual/dmi/id 2>/dev/null | sed -n 's/^E: MEMORY_DEVICE_[0-9]*_LOCATOR=DDR\([45]\).*/\1/p' | head -1)"
+  if [[ -n "$smbus" && -n "$sku" && -f /var/lib/openlinkhub/config.json ]]; then
+    modprobe i2c-dev
+    echo i2c-dev > /etc/modules-load.d/i2c-dev.conf
+    usermod -aG i2c openlinkhub
+    systemctl stop openlinkhub.service
+    python3 openlinkhub-memory.py /var/lib/openlinkhub/config.json "$smbus" "$sku" "${ddr:-5}"
+    echo "RAM RGB: $sku on $smbus (DDR${ddr:-5})"
+  fi
   systemctl enable openlinkhub.service
   systemctl restart openlinkhub.service
+fi
+
+say "Motherboard sensors (fans, voltages, temperatures) through it87"
+# ITE Super I/O chips (Gigabyte boards) are claimed by ACPI, so it87 needs ignore_resource_conflict.
+# Only kept when the driver actually finds a chip.
+if modprobe it87 ignore_resource_conflict=1 2>/dev/null && grep -qx 'it8[0-9]*' /sys/class/hwmon/hwmon*/name; then
+  echo "options it87 ignore_resource_conflict=1" > /etc/modprobe.d/it87.conf
+  echo it87 > /etc/modules-load.d/it87.conf
+  echo "it87 loaded: $(grep -hx 'it8[0-9]*' /sys/class/hwmon/hwmon*/name | xargs)"
+else
+  modprobe -r it87 2>/dev/null || true
+  echo "No ITE sensor chip found: skipping."
 fi
 
 say "sched-ext scheduler: scx_lavd (lower latency for desktop and games)"
