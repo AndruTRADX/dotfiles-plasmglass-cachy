@@ -60,12 +60,11 @@ kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key ButtonsOnLeft XIA
 kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key ButtonsOnRight ""
 kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key BorderSize Tiny
 kwriteconfig6 --file kwinrc --group Plugins --key frozenappEnabled false
-# Unused background services: Baloo search folders (Baloo is off) and proxy auto-detection (no proxy)
-for m in baloosearchmodule wpad_detector; do
-  kwriteconfig6 --file kded6rc --group "Module-$m" --key autoload false
-done
-# KRunner's Baloo file search: with Baloo off, baloorunner is a ~50 MB process that finds nothing
-kwriteconfig6 --file krunnerrc --group Plugins --key baloosearchEnabled false
+# Proxy auto-detection (WPAD) is not needed without a proxy
+kwriteconfig6 --file kded6rc --group Module-wpad_detector --key autoload false
+# Baloo file indexing (names + contents) for file search in KRunner, Kickoff and Dolphin.
+# Hidden folders (Steam, caches) and build/VCS folders are skipped by Baloo's default filters.
+kwriteconfig6 --file baloofilerc --group "Basic Settings" --key Indexing-Enabled true
 
 # See-through copies of both Plasma Styles, so either Global Theme works from System Settings
 build_glass_style "$LIGHT_STYLE"
