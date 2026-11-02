@@ -60,6 +60,10 @@ kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key ButtonsOnLeft XIA
 kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key ButtonsOnRight ""
 kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key BorderSize Tiny
 kwriteconfig6 --file kwinrc --group Plugins --key frozenappEnabled false
+# Unused background services: Baloo search folders (Baloo is off) and proxy auto-detection (no proxy)
+for m in baloosearchmodule wpad_detector; do
+  kwriteconfig6 --file kded6rc --group "Module-$m" --key autoload false
+done
 
 # See-through copies of both Plasma Styles, so either Global Theme works from System Settings
 build_glass_style "$LIGHT_STYLE"
