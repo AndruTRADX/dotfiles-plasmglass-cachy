@@ -30,7 +30,7 @@ cd dotfiles
 | Icons | **MacTahoe-purple-dark** (downloaded from GitHub), `capitaine-cursors` cursor |
 | Global Themes | **Liquid Glass Dark** and **Liquid Glass Light** (System Settings > Global Theme). Applying one, even with "Desktop and window layout" ticked, gives back this exact setup; the glass tint follows automatically (`glass-follow.sh`) |
 | Wallpaper & splash | MacTahoe wallpaper (light/dark variants) on desktop + lock screen, MacTahoe boot splash |
-| Layout | MacTahoe layout: floating top menu bar (launcher, app menu, tray with trash + disk quota, clock, show desktop, power) and a floating auto-hide dock; desktop widgets: Modern Clock and two Kurve audio visualizers (20 fps, paused behind maximized/fullscreen windows) |
+| Layout | MacTahoe layout: floating top menu bar (launcher, app menu, tray with trash + disk quota, clock, show desktop, power) and a floating auto-hide dock (no battery/brightness/dwell-clicker tray items: desktop PC); desktop widgets: Modern Clock and two Kurve audio visualizers (20 fps, paused behind maximized/fullscreen windows) |
 | Bluetooth media buttons | `system/setup.sh` lets bluetoothd create the AVRCP input device; `install.sh` enables the `mpris-proxy` user service (bluez-utils) so headphones know whether something is playing and send Play or Pause correctly |
 | Performance | `scx_lavd` scheduler (`system/scx_loader.toml`), 12 GB NVIDIA shader cache (`home/.config/environment.d/`), hardware video decoding in Brave (`home/.config/brave-flags.conf`), weekly paru cache cleanup (`paru-cache-clean.timer`) |
 | Extras | MacTahoe window decoration (tiny borders), Darkly widget style, SF Pro font, Konsole profile + `AppleDarkPurple` terminal colours |
@@ -41,10 +41,12 @@ cd dotfiles
 | --- | --- |
 | `install.sh` | Installs everything on a new machine |
 | `theme.sh light\|dark` | Switches colours + Plasma Style + panels, then applies the glass |
-| `glass-effect.sh light\|dark` | Liquid glass effect only |
+| `glass-effect.sh light\|dark` | Liquid glass effect only (all kwinrc keys written in one go by `lib/kconf.py`) |
 | `backup.sh` / `backup.sh restore` | Saves / restores the desktop config |
 | `update.sh` | Copies your current config into the repo |
 | `glass-follow.sh` | Run by the `liquid-glass-follow.path` user unit whenever `kdeglobals` changes: switching the Global Theme or colour scheme in System Settings also switches the glass tint |
+| `doctor.sh` | Read-only health check: glass loaded, tint and Plasma Style match the mode, user/system services, Wi-Fi regdomain, VRR. Prints a fix for each failure |
+| `glass-check.sh` | Run at login by `glass-check.service`: if Glass did not load (KWin upgraded), shows a notification with a **Rebuild now** button that runs `fixglass` |
 | `make-global-themes.sh` | Rebuilds the **Liquid Glass Dark/Light** Global Themes from the current desktop (run after changing panels or widgets) |
 | `system/setup.sh` | Root tweaks: KWin pacman hook, scx_lavd scheduler, Wi-Fi regulatory domain (`/etc/iw-regdomain`, from the timezone or `sudo COUNTRY=XX`), monthly btrfs scrub, paccache, uinput, i2c group (run by `install.sh`) |
 
@@ -58,7 +60,7 @@ git add -A; and git commit -m "update"; and git push
 ## After a KWin upgrade
 
 `kwin-effects-glass-git` is built against a specific KWin version, so it stops loading when KWin is upgraded.
-A pacman hook (`system/pacman-hooks/`) prints a reminder; then run:
+A pacman hook (`system/pacman-hooks/`) prints a reminder, and at the next login `glass-check.service` shows a notification with a **Rebuild now** button. Or run it yourself:
 
 ```fish
 fixglass   # rebuilds the effect, then log out and back in

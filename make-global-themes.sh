@@ -48,16 +48,20 @@ desktops().forEach(function (d) {
     d.reloadConfig();
 });
 
-// The dump leaves out which plasmoids the system tray shows: add the extra ones back.
+// The dump leaves out which plasmoids the system tray shows: add the extra ones back, and drop
+// the laptop ones (desktop PC). Dropped items stay in knownItems, or the tray re-adds them as new.
 panels().forEach(function (p) {
     p.widgets("org.kde.plasma.systemtray").forEach(function (w) {
+        var add = ["org.kde.plasma.trash", "org.kde.plasma.diskquota"];
+        var drop = ["org.kde.plasma.battery", "org.kde.plasma.brightness", "org.kde.plasma.dwellclicker"];
         w.currentConfigGroup = ["General"];
         ["extraItems", "knownItems"].forEach(function (k) {
             var v = w.readConfig(k, []);
             if (typeof v === "string") v = v ? v.split(",") : [];
-            ["org.kde.plasma.trash", "org.kde.plasma.diskquota"].forEach(function (item) {
+            add.concat(k === "knownItems" ? drop : []).forEach(function (item) {
                 if (v.indexOf(item) < 0) v.push(item);
             });
+            if (k === "extraItems") v = v.filter(function (item) { return drop.indexOf(item) < 0; });
             w.writeConfig(k, v);
         });
         w.reloadConfig();

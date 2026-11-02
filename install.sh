@@ -85,6 +85,9 @@ say "Glass tint follows the Global Theme (light/dark) automatically"
 systemctl --user daemon-reload
 systemctl --user enable --now liquid-glass-follow.path
 
+say "Login check: notify when the glass effect fails to load (after a KWin upgrade)"
+systemctl --user enable glass-check.service
+
 say "Weekly cleanup of the paru build cache"
 systemctl --user enable --now paru-cache-clean.timer
 
@@ -96,6 +99,9 @@ if [[ "$(getent passwd "$USER" | cut -d: -f7)" != */fish ]]; then
   say "Setting fish as the default shell"
   chsh -s "$(command -v fish)"
 fi
+
+say "Health check"
+./doctor.sh || true
 
 say "Done. Log out and back in (pick 'Plasma (Wayland)')."
 echo "Login screen: System Settings > Login Screen > 'Apply Plasma Settings' to copy this theme there."

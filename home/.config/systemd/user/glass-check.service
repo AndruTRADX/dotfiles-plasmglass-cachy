@@ -1,0 +1,11 @@
+[Unit]
+Description=Warn when the liquid glass KWin effect fails to load
+After=graphical-session.target plasma-kwin_wayland.service
+PartOf=graphical-session.target
+
+[Service]
+Type=oneshot
+ExecStart=%h/Code/dotfiles/glass-check.sh
+
+[Install]
+WantedBy=graphical-session.target

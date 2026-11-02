@@ -7,9 +7,8 @@ set -euo pipefail
 DIR="$(dirname "$(readlink -f "$0")")"
 source "$DIR/lib/common.sh"
 
-STATE="${XDG_STATE_HOME:-$HOME/.local/state}/liquid-glass/mode"
 sleep 1   # a Global Theme writes kdeglobals several times: let it finish
-take_lock # if theme.sh is running, wait for it (it saves the mode when done)
+take_lock # if theme.sh is running, wait for it (its glass-effect.sh run saves the mode)
 
 # A Global Theme may point at a "<style>-Glass" copy this machine has not built yet
 style="$(kreadconfig6 --file plasmarc --group Theme --key name)"
@@ -19,9 +18,7 @@ if [[ "$style" == *-Glass && ! -d "$DATA/plasma/desktoptheme/$style" ]]; then
 fi
 
 mode="$(detect_mode)"
-if [[ "$(cat "$STATE" 2>/dev/null)" != "$mode" ]]; then
+if [[ "$(cat "$GLASS_STATE" 2>/dev/null)" != "$mode" ]]; then
   "$DIR/glass-effect.sh" "$mode"
   sync_gtk "$mode"
-  mkdir -p "$(dirname "$STATE")"
-  echo "$mode" > "$STATE"
 fi

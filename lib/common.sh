@@ -1,6 +1,9 @@
 # Shared helpers. Load with: source "$(dirname "$0")/lib/common.sh"
+LIB="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
 CFG="${XDG_CONFIG_HOME:-$HOME/.config}"
 DATA="${XDG_DATA_HOME:-$HOME/.local/share}"
+STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/liquid-glass"
+GLASS_STATE="$STATE_DIR/mode"   # light|dark tint last written to kwinrc by glass-effect.sh
 QDBUS="$(command -v qdbus6 || command -v qdbus-qt6 || command -v qdbus || true)"
 
 reconfigure_kwin() {
@@ -68,9 +71,8 @@ clone_pinned() {  # $1 = url, $2 = commit, $3 = destination
 # Serialise theme.sh / glass-follow.sh: both write kwinrc and the GTK settings.ini files.
 # The lock is held on fd 9 until the script exits.
 take_lock() {
-  local dir="${XDG_STATE_HOME:-$HOME/.local/state}/liquid-glass"
-  mkdir -p "$dir"
-  exec 9>"$dir/lock"
+  mkdir -p "$STATE_DIR"
+  exec 9>"$STATE_DIR/lock"
   flock -w 120 9 || { echo "Another theme change is still running; giving up." >&2; exit 1; }
 }
 
@@ -85,7 +87,6 @@ STYLE_FOLLOWS_SCHEME="${STYLE_FOLLOWS_SCHEME:-true}"  # true = drop the style's 
 # Sets GLASS_NAME (style to apply) and GLASS_REBUILT (1 = files changed, plasmashell must restart).
 build_glass_style() {  # $1 = source style name
   local style="${1%-Glass}" root="$DATA/plasma/desktoptheme" src="" new f b n=0 stamp
-  local lib; lib="$(dirname "${BASH_SOURCE[0]}")"
   new="$style-Glass"; GLASS_NAME="$new"; GLASS_REBUILT=0
   for f in "$root/$style" "/usr/share/plasma/desktoptheme/$style"; do
     if [[ -d "$f" ]]; then src="$f"; break; fi
@@ -93,19 +94,18 @@ build_glass_style() {  # $1 = source style name
   if [[ -z "$src" ]]; then
     echo "Plasma Style '$style' not found: skipping the see-through copy." >&2; GLASS_NAME="$style"; return
   fi
-  stamp="$( { printf '%s\n' "$src" "$STYLE_BG_KEEP" "$STYLE_FOLLOWS_SCHEME"; cat "$lib/glassify.py"
+  stamp="$( { printf '%s\n' "$src" "$STYLE_BG_KEEP" "$STYLE_FOLLOWS_SCHEME"; cat "$LIB/glassify.py" "$LIB/metadata-json.py"
               find "$src" -type f -printf '%T@ %s %P\n' | sort; } | sha1sum | cut -d' ' -f1)"
   [[ -f "$root/$new/.glass-stamp" && "$(<"$root/$new/.glass-stamp")" == "$stamp" ]] && return
 
   rm -rf -- "${root:?}/$new"; mkdir -p "$root"; cp -a "$src" "$root/$new"
-  [[ -f "$root/$new/metadata.desktop" ]] && sed -i -e "s/^Name=.*/Name=$new/" -e "s/^X-KDE-PluginInfo-Name=.*/X-KDE-PluginInfo-Name=$new/" "$root/$new/metadata.desktop"
-  [[ -f "$root/$new/metadata.json" ]] && sed -i -e "s/\"Id\": *\"[^\"]*\"/\"Id\": \"$new\"/" -e "s/\"Name\": *\"[^\"]*\"/\"Name\": \"$new\"/" "$root/$new/metadata.json"
+  python3 "$LIB/metadata-json.py" "$root/$new" "$new"   # Id/Name; metadata.desktop -> metadata.json
   if [[ "$STYLE_FOLLOWS_SCHEME" == true && -f "$root/$new/colors" ]]; then mv -f "$root/$new/colors" "$root/$new/colors.bak"; fi
   for b in translucent/widgets/panel-background translucent/dialogs/background translucent/widgets/tooltip \
            widgets/panel-background dialogs/background widgets/tooltip; do
     for f in "$root/$new/$b".svg "$root/$new/$b".svgz; do
       [[ -f "$f" ]] || continue
-      if python3 "$lib/glassify.py" "$f" "$(awk -v k="$STYLE_BG_KEEP" 'BEGIN{print k/100}')" >/dev/null; then n=$((n+1)); fi
+      if python3 "$LIB/glassify.py" "$f" "$(awk -v k="$STYLE_BG_KEEP" 'BEGIN{print k/100}')" >/dev/null; then n=$((n+1)); fi
     done
   done
   if (( n == 0 )); then

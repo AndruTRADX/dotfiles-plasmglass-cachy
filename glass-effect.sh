@@ -32,14 +32,18 @@ MODE="${1:-auto}"
 if [[ "$MODE" == auto ]]; then MODE="$(detect_mode)"; fi
 [[ "$MODE" == light || "$MODE" == dark ]] || { echo "Usage: $0 [auto|light|dark]" >&2; exit 1; }
 
-w() { kwriteconfig6 --file kwinrc --group Effect-blurplus --key "$1" "$2"; }
+# All keys are collected, then written to kwinrc in one go by lib/kconf.py (one process, one atomic write)
+BATCH=()
+set_key() { BATCH+=("$1"$'\t'"$2"$'\t'"$3"); }   # set_key <group> <key> <value>
+w() { set_key Effect-blurplus "$1" "$2"; }
+plugin() { set_key Plugins "$1" "$2"; }
 pick() { [[ "$MODE" == light ]] && echo "$1" || echo "$2"; }   # pick <light> <dark>
 
 # ---- make sure only Glass is doing the blurring ----
-kwriteconfig6 --file kwinrc --group Plugins --key glassEnabled true
-kwriteconfig6 --file kwinrc --group Plugins --key blurEnabled false
-kwriteconfig6 --file kwinrc --group Plugins --key translucencyEnabled false
-kwriteconfig6 --file kwinrc --group Plugins --key contrastEnabled "$([[ "$CONTRAST_EFFECT" == off ]] && echo false || echo true)"
+plugin glassEnabled true
+plugin blurEnabled false
+plugin translucencyEnabled false
+plugin contrastEnabled "$([[ "$CONTRAST_EFFECT" == off ]] && echo false || echo true)"
 
 # ---- blur: almost none, like iOS (clarity comes from the lens + adaptive tint) ----
 w BlurStrength "$BLUR_STRENGTH";          w BlurFinetune "$BLUR_FINETUNE"
@@ -98,8 +102,11 @@ w BlurDecorations true
 w BlurMatching false
 w BlurNonMatching true
 
+printf '%s\n' "${BATCH[@]}" | python3 "$LIB/kconf.py" "$CFG/kwinrc"
 reconfigure_kwin
 if [[ -n "$QDBUS" ]]; then
   "$QDBUS" org.kde.KWin /Effects org.kde.kwin.Effects.$([[ "$CONTRAST_EFFECT" == off ]] && echo unloadEffect || echo loadEffect) contrast >/dev/null || true
 fi
+# The tint now in kwinrc: glass-follow.sh compares against this, so it is saved by whoever applies it
+mkdir -p "$(dirname "$GLASS_STATE")"; echo "$MODE" > "$GLASS_STATE"
 echo "Applied liquid glass preset ($MODE)."

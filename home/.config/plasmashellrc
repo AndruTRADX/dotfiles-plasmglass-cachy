@@ -1,4 +1,4 @@
-[PlasmaViews][Panel 387]
+[PlasmaViews][Panel 562]
 alignment=132
 floating=1
 floatingApplets=0
@@ -7,13 +7,13 @@ panelOpacity=2
 panelVisibility=0
 shell=org.kde.plasma.desktop
 
-[PlasmaViews][Panel 387][Defaults]
+[PlasmaViews][Panel 562][Defaults]
 maxLength=1920
 minLength=1920
 offset=0
 thickness=38
 
-[PlasmaViews][Panel 410]
+[PlasmaViews][Panel 585]
 alignment=132
 floating=1
 floatingApplets=0
@@ -22,7 +22,7 @@ panelOpacity=2
 panelVisibility=2
 shell=org.kde.plasma.desktop
 
-[PlasmaViews][Panel 410][Defaults]
+[PlasmaViews][Panel 585][Defaults]
 maxLength=1920
 minLength=1920
 offset=0
