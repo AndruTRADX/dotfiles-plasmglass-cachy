@@ -26,7 +26,7 @@ cd dotfiles
 | Liquid glass | `glass-effect.sh` (KWin effect only). Reference values in `kwin-glass.ini` |
 | Sounds | **Wii** sound theme (downloaded from GitHub), plus `home/.config/*.notifyrc` so more Plasma actions use it: login/logout, lock/unlock, screenshot/recording saved, network and Bluetooth connect, KDE Connect ping/call/notification, empty trash, admin password prompt, low disk space, critical errors |
 | Fish | `home/.config/fish/` (config + PATH + functions `cls`, `fixaudio`, `fixmicro`, `fixglass`), **pure** prompt |
-| Colours | `AppleDarkPurple` / `AppleLightPurple`, Plasma Style `AppleDark-ALL`, GTK `MacTahoe-Dark-purple` |
+| Colours | `AppleDarkPurple` / `AppleLightPurple`, Plasma Style `MacTahoe-Light` / `AppleDark-ALL` (see-through `-Glass` copies built by the scripts), GTK `MacTahoe-Dark-purple` |
 | Icons | **MacTahoe-purple-dark** (downloaded from GitHub), `capitaine-cursors` cursor |
 | Global Themes | **Liquid Glass Dark** and **Liquid Glass Light** (System Settings > Global Theme). Applying one, even with "Desktop and window layout" ticked, gives back this exact setup; the glass tint follows automatically (`glass-follow.sh`) |
 | Wallpaper & splash | MacTahoe wallpaper (light/dark variants) on desktop + lock screen, MacTahoe boot splash |
@@ -46,7 +46,7 @@ cd dotfiles
 | `update.sh` | Copies your current config into the repo |
 | `glass-follow.sh` | Run by the `liquid-glass-follow.path` user unit whenever `kdeglobals` changes: switching the Global Theme or colour scheme in System Settings also switches the glass tint |
 | `make-global-themes.sh` | Rebuilds the **Liquid Glass Dark/Light** Global Themes from the current desktop (run after changing panels or widgets) |
-| `system/setup.sh` | Root tweaks: KWin pacman hook, scx_lavd scheduler, monthly btrfs scrub, paccache, uinput, i2c group (run by `install.sh`) |
+| `system/setup.sh` | Root tweaks: KWin pacman hook, scx_lavd scheduler, Wi-Fi regulatory domain (`/etc/iw-regdomain`, from the timezone or `sudo COUNTRY=XX`), monthly btrfs scrub, paccache, uinput, i2c group (run by `install.sh`) |
 
 ## Keeping the repo up to date
 

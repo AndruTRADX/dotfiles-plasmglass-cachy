@@ -14,7 +14,6 @@ FILES=(
   kwinrc kdeglobals plasmarc kcminputrc ksplashrc kscreenlockerrc
   plasma-org.kde.plasma.desktop-appletsrc plasmashellrc
   auroraerc breezerc darklyrc
-  Kvantum/kvantum.kvconfig
 )
 
 case "${1:-}" in

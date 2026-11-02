@@ -61,7 +61,10 @@ kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key ButtonsOnRight ""
 kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key BorderSize Tiny
 kwriteconfig6 --file kwinrc --group Plugins --key frozenappEnabled false
 
-# Splash, desktop and lock screen wallpaper (light/dark variants follow the colour scheme)
+# See-through copies of both Plasma Styles, so either Global Theme works from System Settings
+build_glass_style "$LIGHT_STYLE"
+build_glass_style "$DARK_STYLE"
+
 # Our own Global Theme: colours, icons, cursor, widget style, decoration, Plasma Style, splash
 plasma-apply-lookandfeel -a com.github.andrutradx.liquidglass-dark || true
 kwriteconfig6 --file ksplashrc --group KSplash --key Theme com.github.andrutradx.liquidglass-dark

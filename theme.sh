@@ -10,14 +10,15 @@ source "$DIR/lib/common.sh"
 
 LIGHT_SCHEME="${LIGHT_SCHEME:-AppleLightPurple}"
 DARK_SCHEME="${DARK_SCHEME:-AppleDarkPurple}"
-# Must ship a translucent panel background (PLASMA_STYLE=keep leaves it alone)
-PLASMA_STYLE="${PLASMA_STYLE:-AppleDark-ALL}"
+# Plasma Style per mode (LIGHT_STYLE / DARK_STYLE in common.sh); PLASMA_STYLE=<name> forces one, keep leaves it alone
+PLASMA_STYLE="${PLASMA_STYLE:-auto}"
 GLASS_STYLE="${GLASS_STYLE:-true}"            # true = use a see-through copy "<style>-Glass"
-STYLE_BG_KEEP="${STYLE_BG_KEEP:-0}"           # % of the style's own background opacity to keep
-STYLE_FOLLOWS_SCHEME="${STYLE_FOLLOWS_SCHEME:-true}"  # true = style uses your colour scheme
 
 MODE="${1:-auto}"
 [[ "$MODE" =~ ^(auto|light|dark)$ ]] || { echo "Usage: $0 [auto|light|dark]" >&2; exit 1; }
+
+# Shared with glass-follow.sh: it waits for us, then sees the saved mode and does nothing
+take_lock
 
 "$DIR/backup.sh" auto >/dev/null
 
@@ -41,45 +42,10 @@ else
 fi
 
 # ---------------------------------------------------------------- see-through Plasma Style
-# The style paints its own dark background under Glass's tint; build "<style>-Glass" with it faded out.
-# Rebuilt only when the source style, glassify.py or STYLE_BG_KEEP changed (stamp file), so
-# re-running theme.sh does not restart plasmashell for nothing.
+[[ "$PLASMA_STYLE" != auto ]] || PLASMA_STYLE="$([[ "$MODE" == light ]] && echo "$LIGHT_STYLE" || echo "$DARK_STYLE")"
 rebuilt=0
-if [[ "$GLASS_STYLE" == true && "$PLASMA_STYLE" != keep && "$PLASMA_STYLE" != *-Glass ]]; then
-  root="$DATA/plasma/desktoptheme"; new="$PLASMA_STYLE-Glass"; src=""
-  for f in "$root/$PLASMA_STYLE" "/usr/share/plasma/desktoptheme/$PLASMA_STYLE"; do
-    if [[ -d "$f" ]]; then src="$f"; break; fi
-  done
-  stamp=""
-  if [[ -n "$src" ]]; then
-    stamp="$( { printf '%s\n' "$src" "$STYLE_BG_KEEP"; cat "$DIR/lib/glassify.py"
-                find "$src" -type f -printf '%T@ %s %P\n' | sort; } | sha1sum | cut -d' ' -f1)"
-  fi
-  if [[ -z "$src" ]]; then
-    echo "Plasma Style '$PLASMA_STYLE' not found: skipping the see-through copy." >&2
-  elif [[ -f "$root/$new/.glass-stamp" && "$(<"$root/$new/.glass-stamp")" == "$stamp" ]]; then
-    PLASMA_STYLE="$new"   # already up to date
-  else
-    rm -rf -- "${root:?}/$new"; mkdir -p "$root"; cp -a "$src" "$root/$new"
-    [[ -f "$root/$new/metadata.desktop" ]] && sed -i -e "s/^Name=.*/Name=$new/" -e "s/^X-KDE-PluginInfo-Name=.*/X-KDE-PluginInfo-Name=$new/" "$root/$new/metadata.desktop"
-    [[ -f "$root/$new/metadata.json" ]] && sed -i -e "s/\"Id\": *\"[^\"]*\"/\"Id\": \"$new\"/" -e "s/\"Name\": *\"[^\"]*\"/\"Name\": \"$new\"/" "$root/$new/metadata.json"
-    n=0
-    for b in translucent/widgets/panel-background translucent/dialogs/background translucent/widgets/tooltip \
-             widgets/panel-background dialogs/background widgets/tooltip; do
-      for f in "$root/$new/$b".svg "$root/$new/$b".svgz; do
-        [[ -f "$f" ]] || continue
-        if python3 "$DIR/lib/glassify.py" "$f" "$(awk -v k="$STYLE_BG_KEEP" 'BEGIN{print k/100}')" >/dev/null; then n=$((n+1)); fi
-      done
-    done
-    if (( n == 0 )); then
-      rm -rf -- "${root:?}/$new"; echo "Nothing to fade in '$PLASMA_STYLE': keeping it." >&2
-    else
-      rm -f "${XDG_CACHE_HOME:-$HOME/.cache}"/plasma-svgelements-"$new"* "${XDG_CACHE_HOME:-$HOME/.cache}"/plasma_theme_"$new"*.kcache
-      echo "$stamp" > "$root/$new/.glass-stamp"
-      echo "Built see-through Plasma Style '$new' ($n backgrounds)."
-      PLASMA_STYLE="$new"; rebuilt=1
-    fi
-  fi
+if [[ "$GLASS_STYLE" == true && "$PLASMA_STYLE" != keep ]]; then
+  build_glass_style "$PLASMA_STYLE"; PLASMA_STYLE="$GLASS_NAME"; rebuilt=$GLASS_REBUILT
 fi
 
 # ---------------------------------------------------------------- apply Plasma Style
@@ -103,11 +69,18 @@ fi
 
 # ---------------------------------------------------------------- panels: Translucent
 # plasmashellrc panelOpacity: 0/missing = Adaptive, 1 = Opaque, 2 = Translucent
+# Only real panels (org.kde.panel containments): plasmashellrc keeps entries for removed ones
+panel_ids() {
+  awk -F= '/^\[Containments\]\[[0-9]+\]$/ { id = $0; gsub(/[^0-9]/, "", id); next }
+           /^\[/ { id = "" }
+           id != "" && $1 == "plugin" && $2 == "org.kde.panel" { print id }' \
+    "$CFG/plasma-org.kde.plasma.desktop-appletsrc" 2>/dev/null | sort -un
+}
 todo=()
 if [[ -f "$CFG/plasmashellrc" ]]; then
   while read -r id; do
     if [[ "$(kreadconfig6 --file plasmashellrc --group PlasmaViews --group "Panel $id" --key panelOpacity)" != 2 ]]; then todo+=("$id"); fi
-  done < <(sed -n 's/^\[PlasmaViews\]\[Panel \([0-9]\+\)\].*/\1/p' "$CFG/plasmashellrc" | sort -un)
+  done < <(panel_ids)
 fi
 
 if (( restart || ${#todo[@]} )); then

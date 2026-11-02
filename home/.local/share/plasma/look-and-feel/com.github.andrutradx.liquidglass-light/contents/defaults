@@ -22,4 +22,4 @@ library=org.kde.kwin.aurorae.v2
 theme=__aurorae__svg__MacTahoe-Light
 
 [plasmarc][Theme]
-name=AppleDark-ALL-Glass
+name=MacTahoe-Light-Glass

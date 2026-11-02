@@ -31,6 +31,18 @@ if command -v scx_loader &>/dev/null; then
   systemctl restart scx_loader.service
 fi
 
+say "Wi-Fi regulatory domain fixed to the country of the timezone (iw-set-regdomain fails if tzdata is mid-upgrade)"
+if [[ ! -s /etc/iw-regdomain ]]; then
+  zone="$(timedatectl show -P Timezone 2>/dev/null || true)"
+  country="${COUNTRY:-$(awk -v z="$zone" '$3 == z { print $1; exit }' /usr/share/zoneinfo/zone.tab 2>/dev/null)}"
+  if [[ -n "$country" ]]; then
+    echo "COUNTRY=$country" > /etc/iw-regdomain
+    systemctl reset-failed cachyos-iw-set-regdomain.service 2>/dev/null || true
+  else
+    echo "Could not tell the country from timezone '$zone': run with COUNTRY=XX to set it." >&2
+  fi
+fi
+
 say "Monthly btrfs scrub of / (detects silent data corruption)"
 systemctl enable --now btrfs-scrub@-.timer
 

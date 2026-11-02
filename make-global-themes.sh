@@ -67,11 +67,11 @@ JS
 
 # ---------------------------------------------------------------- packages
 build() {  # $1 = dark|light
-  local mode="$1" Mode id name scheme icons deco src dir
+  local mode="$1" Mode id name scheme icons deco style src dir
   if [[ "$mode" == dark ]]; then
-    Mode=Dark;  scheme=AppleDarkPurple;  icons=MacTahoe-purple-dark;  deco=MacTahoe-Dark;  src="$SRC_DARK"
+    Mode=Dark;  scheme=AppleDarkPurple;  icons=MacTahoe-purple-dark;  deco=MacTahoe-Dark;  style="$DARK_STYLE-Glass";  src="$SRC_DARK"
   else
-    Mode=Light; scheme=AppleLightPurple; icons=MacTahoe-purple-light; deco=MacTahoe-Light; src="$SRC_LIGHT"
+    Mode=Light; scheme=AppleLightPurple; icons=MacTahoe-purple-light; deco=MacTahoe-Light; style="$LIGHT_STYLE-Glass"; src="$SRC_LIGHT"
   fi
   id="com.github.andrutradx.liquidglass-$mode"; name="Liquid Glass $Mode"; dir="$OUT/$id"
   rm -rf "$dir"; mkdir -p "$dir/contents/layouts"
@@ -122,7 +122,7 @@ library=org.kde.kwin.aurorae.v2
 theme=__aurorae__svg__$deco
 
 [plasmarc][Theme]
-name=AppleDark-ALL-Glass
+name=$style
 EOF
   echo "Built $dir"
 }

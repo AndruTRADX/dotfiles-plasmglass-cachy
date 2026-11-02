@@ -64,3 +64,55 @@ clone_pinned() {  # $1 = url, $2 = commit, $3 = destination
   git -C "$3" fetch -q --depth 1 "$1" "$2"
   git -C "$3" checkout -q FETCH_HEAD
 }
+
+# Serialise theme.sh / glass-follow.sh: both write kwinrc and the GTK settings.ini files.
+# The lock is held on fd 9 until the script exits.
+take_lock() {
+  local dir="${XDG_STATE_HOME:-$HOME/.local/state}/liquid-glass"
+  mkdir -p "$dir"
+  exec 9>"$dir/lock"
+  flock -w 120 9 || { echo "Another theme change is still running; giving up." >&2; exit 1; }
+}
+
+# Plasma Style for each mode, and how build_glass_style fades it
+LIGHT_STYLE="${LIGHT_STYLE:-MacTahoe-Light}"
+DARK_STYLE="${DARK_STYLE:-AppleDark-ALL}"
+STYLE_BG_KEEP="${STYLE_BG_KEEP:-0}"                   # % of the style's own background opacity to keep
+STYLE_FOLLOWS_SCHEME="${STYLE_FOLLOWS_SCHEME:-true}"  # true = drop the style's "colors" so it uses your scheme
+
+# Builds "<style>-Glass": a copy of a Plasma Style with its own backgrounds faded out, so Glass's tint shows.
+# Rebuilt only when the source, glassify.py or the settings above changed (stamp file).
+# Sets GLASS_NAME (style to apply) and GLASS_REBUILT (1 = files changed, plasmashell must restart).
+build_glass_style() {  # $1 = source style name
+  local style="${1%-Glass}" root="$DATA/plasma/desktoptheme" src="" new f b n=0 stamp
+  local lib; lib="$(dirname "${BASH_SOURCE[0]}")"
+  new="$style-Glass"; GLASS_NAME="$new"; GLASS_REBUILT=0
+  for f in "$root/$style" "/usr/share/plasma/desktoptheme/$style"; do
+    if [[ -d "$f" ]]; then src="$f"; break; fi
+  done
+  if [[ -z "$src" ]]; then
+    echo "Plasma Style '$style' not found: skipping the see-through copy." >&2; GLASS_NAME="$style"; return
+  fi
+  stamp="$( { printf '%s\n' "$src" "$STYLE_BG_KEEP" "$STYLE_FOLLOWS_SCHEME"; cat "$lib/glassify.py"
+              find "$src" -type f -printf '%T@ %s %P\n' | sort; } | sha1sum | cut -d' ' -f1)"
+  [[ -f "$root/$new/.glass-stamp" && "$(<"$root/$new/.glass-stamp")" == "$stamp" ]] && return
+
+  rm -rf -- "${root:?}/$new"; mkdir -p "$root"; cp -a "$src" "$root/$new"
+  [[ -f "$root/$new/metadata.desktop" ]] && sed -i -e "s/^Name=.*/Name=$new/" -e "s/^X-KDE-PluginInfo-Name=.*/X-KDE-PluginInfo-Name=$new/" "$root/$new/metadata.desktop"
+  [[ -f "$root/$new/metadata.json" ]] && sed -i -e "s/\"Id\": *\"[^\"]*\"/\"Id\": \"$new\"/" -e "s/\"Name\": *\"[^\"]*\"/\"Name\": \"$new\"/" "$root/$new/metadata.json"
+  if [[ "$STYLE_FOLLOWS_SCHEME" == true && -f "$root/$new/colors" ]]; then mv -f "$root/$new/colors" "$root/$new/colors.bak"; fi
+  for b in translucent/widgets/panel-background translucent/dialogs/background translucent/widgets/tooltip \
+           widgets/panel-background dialogs/background widgets/tooltip; do
+    for f in "$root/$new/$b".svg "$root/$new/$b".svgz; do
+      [[ -f "$f" ]] || continue
+      if python3 "$lib/glassify.py" "$f" "$(awk -v k="$STYLE_BG_KEEP" 'BEGIN{print k/100}')" >/dev/null; then n=$((n+1)); fi
+    done
+  done
+  if (( n == 0 )); then
+    rm -rf -- "${root:?}/$new"; echo "Nothing to fade in '$style': keeping it." >&2; GLASS_NAME="$style"; return
+  fi
+  rm -f "${XDG_CACHE_HOME:-$HOME/.cache}"/plasma-svgelements-"$new"* "${XDG_CACHE_HOME:-$HOME/.cache}"/plasma_theme_"$new"*.kcache
+  echo "$stamp" > "$root/$new/.glass-stamp"
+  echo "Built see-through Plasma Style '$new' ($n backgrounds)." >&2
+  GLASS_REBUILT=1
+}
