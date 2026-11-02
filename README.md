@@ -32,7 +32,7 @@ cd dotfiles
 | Wallpaper & splash | MacTahoe wallpaper (light/dark variants) on desktop + lock screen, MacTahoe boot splash |
 | Layout | MacTahoe layout: floating top menu bar (launcher, app menu, tray with trash + disk quota, clock, show desktop, power) and a floating auto-hide dock (no battery/brightness/dwell-clicker tray items: desktop PC); desktop widgets: Modern Clock and two Kurve audio visualizers (20 fps, paused behind maximized/fullscreen windows) |
 | Bluetooth media buttons | `system/setup.sh` lets bluetoothd create the AVRCP input device; `install.sh` enables the `mpris-proxy` user service (bluez-utils) so headphones know whether something is playing and send Play or Pause correctly |
-| Performance | `scx_lavd` scheduler (`system/scx_loader.toml`), 12 GB NVIDIA shader cache (`home/.config/environment.d/`), hardware video decoding in Brave (`home/.config/brave-flags.conf`), weekly paru cache cleanup (`paru-cache-clean.timer`), unused kded6 modules off (`baloosearchmodule`, `wpad_detector`) |
+| Performance | `scx_lavd` scheduler (`system/scx_loader.toml`), 12 GB NVIDIA shader cache (`home/.config/environment.d/`), hardware video decoding in Brave (`home/.config/brave-flags.conf`), weekly paru cache cleanup (`paru-cache-clean.timer`), unused kded6 modules off (`baloosearchmodule`, `wpad_detector`) and the KRunner Baloo search (`baloorunner`) |
 | Extras | MacTahoe window decoration (tiny borders), Darkly widget style, SF Pro font, Konsole profile + `AppleDarkPurple` terminal colours |
 
 ## Scripts

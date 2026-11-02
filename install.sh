@@ -64,6 +64,8 @@ kwriteconfig6 --file kwinrc --group Plugins --key frozenappEnabled false
 for m in baloosearchmodule wpad_detector; do
   kwriteconfig6 --file kded6rc --group "Module-$m" --key autoload false
 done
+# KRunner's Baloo file search: with Baloo off, baloorunner is a ~50 MB process that finds nothing
+kwriteconfig6 --file krunnerrc --group Plugins --key baloosearchEnabled false
 
 # See-through copies of both Plasma Styles, so either Global Theme works from System Settings
 build_glass_style "$LIGHT_STYLE"
