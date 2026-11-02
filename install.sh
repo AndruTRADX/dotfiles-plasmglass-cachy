@@ -93,6 +93,9 @@ systemctl --user enable --now liquid-glass-follow.path
 say "Login check: notify when the glass effect fails to load (after a KWin upgrade)"
 systemctl --user enable glass-check.service
 
+say "RGB follows the wallpaper on screen (OpenLinkHub devices; slideshows too)"
+systemctl --user enable --now wallpaper-rgb.service
+
 say "Weekly cleanup of the paru build cache"
 systemctl --user enable --now paru-cache-clean.timer
 

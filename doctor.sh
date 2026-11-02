@@ -46,6 +46,8 @@ check "liquid-glass-follow.path active" "systemctl --user enable --now liquid-gl
   systemctl --user is-active liquid-glass-follow.path
 check "glass-check.service enabled" "systemctl --user enable glass-check.service" \
   systemctl --user is-enabled glass-check.service
+check "wallpaper-rgb.service running (RGB follows the wallpaper)" "systemctl --user enable --now wallpaper-rgb.service" \
+  systemctl --user is-active wallpaper-rgb.service
 check "paru-cache-clean.timer active" "systemctl --user enable --now paru-cache-clean.timer" \
   systemctl --user is-active paru-cache-clean.timer
 check "mpris-proxy.service active" "systemctl --user enable --now mpris-proxy.service" \

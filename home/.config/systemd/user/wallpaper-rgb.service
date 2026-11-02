@@ -1,0 +1,15 @@
+[Unit]
+Description=Paint the OpenLinkHub RGB devices with the wallpaper on screen
+# Ready before plasmashell loads the first slide, so the login wallpaper is caught too
+Before=plasma-plasmashell.service
+PartOf=graphical-session.target
+
+[Service]
+Type=notify
+ExecStart=%h/Code/dotfiles/wallpaper-rgb.sh
+Restart=on-failure
+RestartSec=5
+Nice=10
+
+[Install]
+WantedBy=plasma-core.target
