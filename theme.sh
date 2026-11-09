@@ -3,7 +3,6 @@
 # Usage: ./theme.sh [auto|light|dark]   (auto = keep the current colour scheme)
 #
 # Colour schemes live in home/.local/share/color-schemes/ (installed by install.sh).
-# Saves a backup first (./backup.sh restore to undo).
 set -euo pipefail
 DIR="$(dirname "$(readlink -f "$0")")"
 source "$DIR/lib/common.sh"
@@ -19,8 +18,6 @@ MODE="${1:-auto}"
 
 # Shared with glass-follow.sh: it waits for us, then sees the saved mode and does nothing
 take_lock
-
-"$DIR/backup.sh" auto >/dev/null
 
 # ---------------------------------------------------------------- colour scheme
 if [[ "$MODE" == auto ]]; then

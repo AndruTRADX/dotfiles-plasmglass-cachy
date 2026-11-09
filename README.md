@@ -17,7 +17,7 @@ cd dotfiles
 3. Log out and back in.
 4. Optional: System Settings > Login Screen > **Apply Plasma Settings** so the login screen uses the same theme.
 
-> Any files that already existed are backed up to `~/.dotfiles-backup/`.
+> Files that already exist in your home are overwritten (no backups: git history is the backup).
 
 ## What's included
 
@@ -44,7 +44,6 @@ cd dotfiles
 | `install.sh` | Installs everything on a new machine |
 | `theme.sh light\|dark` | Switches colours + Plasma Style + panels, then applies the glass |
 | `glass-effect.sh light\|dark` | Liquid glass effect only (all kwinrc keys written in one go by `lib/kconf.py`) |
-| `backup.sh` / `backup.sh restore` | Saves / restores the desktop config |
 | `update.sh` | Copies your current config into the repo |
 | `glass-follow.sh` | Run by the `liquid-glass-follow.path` user unit whenever `kdeglobals` changes: switching the Global Theme or colour scheme in System Settings also switches the glass tint |
 | `doctor.sh` | Read-only health check: glass loaded, tint and Plasma Style match the mode, user/system services, Wi-Fi regdomain, VRR. Prints a fix for each failure |

@@ -3,7 +3,6 @@
 # Usage: ./install.sh
 set -euo pipefail
 cd "$(dirname "$(readlink -f "$0")")"
-REPO="$PWD"
 CFG="${XDG_CONFIG_HOME:-$HOME/.config}"
 DATA="${XDG_DATA_HOME:-$HOME/.local/share}"
 TMP="$(mktemp -d)"; trap 'rm -rf "$TMP"' EXIT
@@ -35,13 +34,11 @@ clone_pinned "$WII_SOUNDS_URL" "$WII_SOUNDS_REV" "$DATA/sounds/Wii"
 rm -rf "$DATA/sounds/Wii/.git"
 
 # ------------------------------------------------------------- files
-say "Copying files to \$HOME (existing ones are backed up to ~/.dotfiles-backup)"
-BK="$HOME/.dotfiles-backup/$(date +%Y%m%d-%H%M%S)"
+say "Copying files to \$HOME"
 # plasmashell writes its panel config back on exit: stop it before copying
 systemctl --user stop plasma-plasmashell.service 2>/dev/null || kquitapp6 plasmashell 2>/dev/null || true
 (cd home && find . -type f -o -type l) | while read -r f; do
   f="${f#./}"
-  if [[ -e "$HOME/$f" ]]; then mkdir -p "$BK/$(dirname "$f")"; cp -a "$HOME/$f" "$BK/$f"; fi
   mkdir -p "$HOME/$(dirname "$f")"
   cp -a "home/$f" "$HOME/$f"
 done
@@ -110,4 +107,3 @@ say "Health check"
 
 say "Done. Log out and back in (pick 'Plasma (Wayland)')."
 echo "Login screen: System Settings > Login Screen > 'Apply Plasma Settings' to copy this theme there."
-if [[ -d "$BK" ]]; then echo "Backup of your previous files: $BK"; fi
