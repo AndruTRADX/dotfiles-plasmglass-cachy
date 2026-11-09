@@ -14,7 +14,7 @@ say() { printf '\n\033[1;35m==> %s\033[0m\n' "$*"; }
 # ------------------------------------------------------------- packages
 say "Packages (pacman)"
 sudo pacman -S --needed --noconfirm \
-  git python fish fisher fish-pure-prompt fish-autopair cachyos-fish-config \
+  git python micro fish fisher fish-pure-prompt fish-autopair cachyos-fish-config \
   capitaine-cursors ttf-jetbrains-mono-nerd bluez-utils paru \
   openlinkhub
 
