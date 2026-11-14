@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
-# "Liquid glass" preset for kwin-effects-glass: edge lens + chromatic aberration +
-# thin white border + frosted body.
+# "Liquid glass" preset for kwin-effects-glass, set from what is known of Apple's material on macOS 26:
+# a lens only at the edge (a ~20 px band that pulls the image in from further inside, no distortion
+# in the body), hardly any blur, two 1 px white highlights (top-left and bottom-right), no chromatic
+# aberration, and a grey wash that lifts blacks and dims whites so text stays readable without blur.
 # Usage: ./glass-effect.sh [auto|light|dark]   (auto = follow the current colour scheme)
 #
 # Only touches KWin (~/.config/kwinrc). Colours / Plasma Style / panels live in theme.sh.
@@ -11,20 +13,22 @@ set -euo pipefail
 source "$(dirname "$(readlink -f "$0")")/lib/common.sh"
 
 LENS_EDGE="${LENS_EDGE:-2}"             # x10 px: width of the refracting band at the edge
-LENS_POW="${LENS_POW:-1}"               # /2: falloff steepness (higher = thinner, sharper edge)
-LENS_BEVEL="${LENS_BEVEL:-15}"          # /10: edge lens strength (5..15)
-LENS_STRENGTH="${LENS_STRENGTH:-12}"    # /20: index of refraction - 1
-LENS_CURVE="${LENS_CURVE:-14}"          # /2: bends the lens sideways towards the corners (0..20)
-FRINGING="${FRINGING:-16}"              # /20: chromatic aberration (0..20)
+LENS_POW="${LENS_POW:-4}"               # /2: falloff steepness (higher = thinner, sharper edge); 4 is closest to Apple's quarter-circle profile
+LENS_BEVEL="${LENS_BEVEL:-13}"          # /10: edge lens strength (5..15). Reach of the lens = band x bevel x (1 + strength) = 40 px
+LENS_STRENGTH="${LENS_STRENGTH:-11}"    # /20: index of refraction - 1
+LENS_CURVE="${LENS_CURVE:-0}"           # /2: bends the lens sideways towards the corners (0..20); Apple's only follows the edge
+FRINGING="${FRINGING:-0}"               # /20: chromatic aberration (0..20); none on macOS, and 0 saves two texture reads per pixel
 RIM_WIDTH="${RIM_WIDTH:-10}"            # /10 px
 RIM_LIGHT="${RIM_LIGHT:-5}"             # /10: white border thickness, light mode
-RIM_DARK="${RIM_DARK:-7}"               # /10: white border thickness, dark mode
-BLUR_STRENGTH="${BLUR_STRENGTH:-2}"     # 1 = almost none, 2 = a hint, 3 = frosted
-BLUR_FINETUNE="${BLUR_FINETUNE:-8}"     # 0..10, fine adjustment within the strength
-TINT_LIGHT="${TINT_LIGHT:-#B0FFFFFF}"   # #AARRGGBB
-TINT_DARK="${TINT_DARK:-#A018181B}"
-TINT_MIN="${TINT_MIN:-60}"              # adaptive tint: % of the tint kept over a similar backdrop
-BODY_REFRACTION="${BODY_REFRACTION:-true}"  # true = refract the whole surface, not just the edge
+RIM_DARK="${RIM_DARK:-6}"               # /10: white border thickness, dark mode
+BLUR_STRENGTH="${BLUR_STRENGTH:-1}"     # 1 and 2 = one half-size pass (about 2 px, as Apple's bars), 3-4 = two passes, 5+ = frosted
+BLUR_FINETUNE="${BLUR_FINETUNE:-5}"     # 0..10, fine adjustment within the strength
+NOISE="${NOISE:-2}"                     # film grain over the glass (0 = none)
+TINT_LIGHT="${TINT_LIGHT:-#B8FFFFFF}"   # #AARRGGBB: the alpha is the tint over a backdrop that contrasts with it
+TINT_DARK="${TINT_DARK:-#D92A2A2E}"
+TINT_MIN="${TINT_MIN:-60}"              # adaptive tint: % of the tint kept over a similar backdrop (low = clear glass there)
+SATURATION="${SATURATION:-1.8}"         # the wash greys the backdrop out: this gives its colour back
+BODY_REFRACTION="${BODY_REFRACTION:-false}" # true = also bend the image further inside; Apple's lens stops at the edge band
 LENS_WINDOWS="${LENS_WINDOWS:-false}"       # true = also bend the backdrop behind normal windows (costs GPU on every repaint)
 CONTRAST_EFFECT="${CONTRAST_EFFECT:-off}"   # off = disable KWin's Background Contrast (extra dark tint)
 
@@ -45,20 +49,20 @@ plugin blurEnabled false
 plugin translucencyEnabled false
 plugin contrastEnabled "$([[ "$CONTRAST_EFFECT" == off ]] && echo false || echo true)"
 
-# ---- blur: almost none, like iOS (clarity comes from the lens + adaptive tint) ----
+# ---- blur: almost none, like iOS (clarity comes from the lens + adaptive tint), with a little grain ----
 w BlurStrength "$BLUR_STRENGTH";          w BlurFinetune "$BLUR_FINETUNE"
 w DecorationBlurStrength "$BLUR_STRENGTH"
 w DockBlurStrength "$BLUR_STRENGTH";      w DockBlurFinetune "$BLUR_FINETUNE"
-w NoiseStrength 0; w DecorationNoiseStrength 0; w DockNoiseStrength 0
+w NoiseStrength "$NOISE"; w DecorationNoiseStrength "$NOISE"; w DockNoiseStrength "$NOISE"
 w BlurSaturationCompensation false
 
 # ---- color ----
 w OklabSaturation true
 w Contrast 1.0
 w Brightness "$(pick 1.05 1.0)"
-w Saturation 1.3
+w Saturation "$SATURATION"
 w TintColor "$(pick "$TINT_LIGHT" "$TINT_DARK")"
-w AutoTintAlpha true            # frost gets stronger where the backdrop contrasts with it
+w AutoTintAlpha true            # like Apple's: clear over a similar backdrop, stronger where text would be hard to read
 w AutoTintAlphaMin "$TINT_MIN"
 w AutoTintAlphaMax 100
 for k in ExcludeDocks ExcludeDecorations ExcludeTooltips ExcludeMenus ExcludeOSD; do w "$k" false; done
@@ -83,6 +87,9 @@ w RimSpecular true
 w RimWidth "$RIM_WIDTH"
 w RimSpecularScale "$(pick "$RIM_LIGHT" "$RIM_DARK")"
 w RimAdaptToRefraction false
+# light comes from the top-left, like Apple's: the rim catches it there and on the opposite corner
+w RimSpecularTopLeft true;   w RimSpecularBottomRight true
+w RimSpecularTopRight false; w RimSpecularBottomLeft false
 w RimGlow false
 w GlowColor "#00FFFFFF"         # alpha 0 -> specular stays pure white
 w RimGlowColorMix false
@@ -99,6 +106,10 @@ w DynamicCorners false
 
 # ---- force blur ----
 w BlurDecorations true
+w BlurMatchingDecorations false   # the other half of the same radio button in the settings dialog
+# Plasma popups (launcher, notifications, OSD) already ask for blur themselves: forcing a frame on top makes
+# the effect run its whole blur chain twice for them
+w DecorWindowClasses plasmashell
 w BlurMatching false
 w BlurNonMatching true
 
