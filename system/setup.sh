@@ -57,6 +57,9 @@ if command -v scx_loader &>/dev/null; then
   systemctl restart scx_loader.service
 fi
 
+say "intel_lpmd off (laptop power saver: on a desktop it only exits with an error at every boot)"
+systemctl disable --now intel_lpmd.service 2>/dev/null || true
+
 say "Wi-Fi regulatory domain fixed to the country of the timezone (iw-set-regdomain fails if tzdata is mid-upgrade)"
 if [[ ! -s /etc/iw-regdomain ]]; then
   zone="$(timedatectl show -P Timezone 2>/dev/null || true)"

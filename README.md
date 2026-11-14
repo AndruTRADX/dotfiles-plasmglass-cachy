@@ -51,7 +51,7 @@ cd dotfiles
 | `doctor.sh` | Read-only health check: glass loaded, tint and Plasma Style match the mode, user/system services, Wi-Fi regdomain, VRR. Prints a fix for each failure |
 | `glass-check.sh` | Run at login by `glass-check.service`: if Glass did not load (KWin upgraded), shows a notification with a **Rebuild now** button that runs `fixglass` |
 | `make-global-themes.sh` | Rebuilds the **Liquid Glass Dark/Light** Global Themes from the current desktop (run after changing panels or widgets) |
-| `system/setup.sh` | Root tweaks: KWin pacman hook, scx_lavd scheduler, Wi-Fi regulatory domain (`/etc/iw-regdomain`, from the timezone or `sudo COUNTRY=XX`), it87 sensors, OpenLinkHub RAM RGB, monthly btrfs scrub, paccache, uinput, i2c group (run by `install.sh`) |
+| `system/setup.sh` | Root tweaks: KWin pacman hook, scx_lavd scheduler, intel_lpmd off, Wi-Fi regulatory domain (`/etc/iw-regdomain`, from the timezone or `sudo COUNTRY=XX`), it87 sensors, OpenLinkHub RAM RGB, monthly btrfs scrub, paccache, uinput, i2c group (run by `install.sh`) |
 
 ## Keyboard shortcuts
 
