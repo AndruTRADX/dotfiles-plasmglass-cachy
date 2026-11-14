@@ -83,6 +83,9 @@ plasma-apply-wallpaperimage "$WALL" || true
 say "Liquid glass"
 ./theme.sh dark
 
+say "Keyboard shortcuts (60% keyboard: I J K L as arrows)"
+./shortcuts.sh || true
+
 say "Glass tint follows the Global Theme (light/dark) automatically"
 systemctl --user daemon-reload
 systemctl --user enable --now liquid-glass-follow.path

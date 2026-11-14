@@ -25,7 +25,8 @@ cd dotfiles
 | --- | --- |
 | Liquid glass | `glass-effect.sh` (KWin effect only). Reference values in `kwin-glass.ini` |
 | Sounds | **Wii** sound theme (downloaded from GitHub), plus `home/.config/*.notifyrc` so more Plasma actions use it: login/logout, lock/unlock, screenshot/recording saved, network and Bluetooth connect, KDE Connect ping/call/notification, empty trash, admin password prompt, low disk space, critical errors |
-| Fish | `home/.config/fish/` (config + PATH + functions `cls`, `fixaudio`, `fixmicro`, `fixglass`), **pure** prompt |
+| Shortcuts | `shortcuts.sh`: a layout for a 60% keyboard, everything on letters and digits with **I J K L** as arrows (see [Keyboard shortcuts](#keyboard-shortcuts)) |
+| Fish | `home/.config/fish/` (config + PATH + functions `cls`, `fixaudio`, `fixmicro`, `fixglass`, `shortcuts`), **pure** prompt |
 | Colours | `AppleDarkPurple` / `AppleLightPurple`, Plasma Style `MacTahoe-Light` / `AppleDark-ALL` (see-through `-Glass` copies built by the scripts), GTK `MacTahoe-Dark-purple` |
 | Icons | **MacTahoe-purple-dark** (downloaded from GitHub), `capitaine-cursors` cursor |
 | Global Themes | **Liquid Glass Dark** and **Liquid Glass Light** (System Settings > Global Theme). Applying one, even with "Desktop and window layout" ticked, gives back this exact setup; the glass tint follows automatically (`glass-follow.sh`) |
@@ -44,12 +45,44 @@ cd dotfiles
 | `install.sh` | Installs everything on a new machine |
 | `theme.sh light\|dark` | Switches colours + Plasma Style + panels, then applies the glass |
 | `glass-effect.sh light\|dark` | Liquid glass effect only (all kwinrc keys written in one go by `lib/kconf.py`) |
+| `shortcuts.sh` | Applies the global shortcuts live through D-Bus (`lib/shortcuts.py`); the table inside the script is the layout |
 | `update.sh` | Copies your current config into the repo |
 | `glass-follow.sh` | Run by the `liquid-glass-follow.path` user unit whenever `kdeglobals` changes: switching the Global Theme or colour scheme in System Settings also switches the glass tint |
 | `doctor.sh` | Read-only health check: glass loaded, tint and Plasma Style match the mode, user/system services, Wi-Fi regdomain, VRR. Prints a fix for each failure |
 | `glass-check.sh` | Run at login by `glass-check.service`: if Glass did not load (KWin upgraded), shows a notification with a **Rebuild now** button that runs `fixglass` |
 | `make-global-themes.sh` | Rebuilds the **Liquid Glass Dark/Light** Global Themes from the current desktop (run after changing panels or widgets) |
 | `system/setup.sh` | Root tweaks: KWin pacman hook, scx_lavd scheduler, Wi-Fi regulatory domain (`/etc/iw-regdomain`, from the timezone or `sudo COUNTRY=XX`), it87 sensors, OpenLinkHub RAM RGB, monthly btrfs scrub, paccache, uinput, i2c group (run by `install.sh`) |
+
+## Keyboard shortcuts
+
+Run `shortcuts` in fish to list everything that is bound right now, straight from KDE's own file; add words to filter (`shortcuts tile`, `shortcuts meta+ctrl`).
+
+Made for a 60% keyboard (no arrows, F row, PgUp/PgDn or Print key). **I J K L** are the arrows, as on the keyboard's Fn layer; the modifier picks what moves:
+
+| Keys | I (up) | K (down) | J (left) | L (right) |
+| --- | --- | --- | --- | --- |
+| `Meta` | volume up | volume down | previous track | next track |
+| `Meta+Shift` | | | desktop to the left | desktop to the right |
+| `Meta+Alt` | focus window above | focus window below | focus window on the left | focus window on the right |
+| `Meta+Ctrl` | maximize / restore | minimize | tile to the left half | tile to the right half |
+| `Meta+Ctrl+Shift` | | | move window one desktop left | move window one desktop right |
+
+| Keys | Action |
+| --- | --- |
+| `Meta+U` / `Meta+M` | play-pause / mute |
+| `Meta+1`…`9` | focus or launch the app at that position in the dock |
+| `Meta+Ctrl+1`…`3` | go to desktop 1…3 |
+| `Meta+Q` / `Meta+F` | close window / fullscreen |
+| `Alt+Tab` / `Alt+Esc` | switch windows / switch windows of the same app |
+| `Meta+A` | jump to the window asking for attention |
+| `Meta+Return` / `Meta+E` / `Meta+C` | Konsole / Dolphin / calculator |
+| `Alt+Space` | KRunner: apps, files, calculator, commands |
+| `Meta+W` / `Meta+G` | overview (type to filter windows) / desktop grid |
+| `Meta+V` | clipboard history |
+| `Meta+S` / `Meta+Ctrl+S` / `Meta+Alt+S` | screenshot of a region / the active window / the whole screen |
+| `Meta+Shift+R` / `Meta+Ctrl+R` / `Meta+Alt+R` | record a region / a window / the screen |
+| `Meta+Space` | switch keyboard layout (us / es) |
+| `Meta+B` / `Meta+Shift+Q` | lock / log out, restart or shut down |
 
 ## Keeping the repo up to date
 
