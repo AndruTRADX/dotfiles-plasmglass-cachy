@@ -36,7 +36,7 @@ cd dotfiles
 | Performance | `scx_lavd` scheduler (`system/scx_loader.toml`), 12 GB NVIDIA shader cache (`home/.config/environment.d/`), hardware video decoding in Brave (`home/.config/brave-flags.conf`), weekly paru cache cleanup (`paru-cache-clean.timer`), proxy auto-detection (`wpad_detector`) off |
 | File search | Baloo indexing on (file names + contents of your home, hidden folders skipped): search files from KRunner, the launcher and Dolphin |
 | Hardware | Motherboard fans/voltages via `it87` (ITE chips on Gigabyte boards), Corsair RAM RGB in OpenLinkHub (SMBus and SKU detected by `system/setup.sh`) |
-| Extras | MacTahoe window decoration (tiny borders), Darkly widget style, SF Pro font, Konsole profile + `AppleDarkPurple` terminal colours |
+| Extras | MacTahoe window decoration (tiny borders), Darkly widget style (see-through menus and Dolphin sidebar), SF Pro font, macOS-style clock (`sáb 14 nov 1:07 p. m.`), genie minimize animation, Konsole profile + `AppleDarkPurple` terminal colours with a see-through background |
 
 ## Scripts
 

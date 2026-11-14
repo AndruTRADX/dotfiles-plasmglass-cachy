@@ -214,6 +214,16 @@ plugin=org.kde.plasma.digitalclock
 popupHeight=451
 popupWidth=525
 
+[Containments][562][Applets][583][Configuration][Appearance]
+autoFontAndSize=false
+customDateFormat=ddd d MMM
+dateDisplayFormat=BesideTime
+dateFormat=custom
+fontFamily=SF Pro Text
+fontSize=10
+fontWeight=500
+showDate=true
+
 [Containments][562][Applets][584]
 immutability=1
 plugin=org.kde.plasma.showdesktop

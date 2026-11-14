@@ -152,6 +152,16 @@ var layout = {
                         "/": {
                             "popupHeight": "451",
                             "popupWidth": "525"
+                        },
+                        "/Appearance": {
+                            "autoFontAndSize": "false",
+                            "customDateFormat": "ddd d MMM",
+                            "dateDisplayFormat": "BesideTime",
+                            "dateFormat": "custom",
+                            "fontFamily": "SF Pro Text",
+                            "fontSize": "10",
+                            "fontWeight": "500",
+                            "showDate": "true"
                         }
                     },
                     "plugin": "org.kde.plasma.digitalclock"

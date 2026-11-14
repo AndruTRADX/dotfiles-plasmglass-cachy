@@ -57,6 +57,10 @@ kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key ButtonsOnLeft XIA
 kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key ButtonsOnRight ""
 kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key BorderSize Tiny
 kwriteconfig6 --file kwinrc --group Plugins --key frozenappEnabled false
+# Minimize with the genie animation (Magic Lamp) instead of Squash: 800 ms x the 0.25 animation speed = 200 ms
+kwriteconfig6 --file kwinrc --group Plugins --key magiclampEnabled true
+kwriteconfig6 --file kwinrc --group Plugins --key squashEnabled false
+kwriteconfig6 --file kwinrc --group Effect-magiclamp --key AnimationDuration 800
 # Proxy auto-detection (WPAD) is not needed without a proxy
 kwriteconfig6 --file kded6rc --group Module-wpad_detector --key autoload false
 # Baloo file indexing (names + contents) for file search in KRunner, Kickoff and Dolphin.

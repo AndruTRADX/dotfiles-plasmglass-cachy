@@ -1,7 +1,7 @@
 [General]
 Description=Apple Dark (Purple)
-Opacity=1
-Blur=false
+Opacity=0.6
+Blur=true
 
 [Background]
 Color=30,30,30

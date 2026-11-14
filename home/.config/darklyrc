@@ -5,6 +5,7 @@ ShadowSize=ShadowNone
 [Style]
 DisableDolphinUrlNavigatorBackground=false
 DockWidgetDrawFrame=true
+DolphinSidebarOpacity=60
 KTextEditDrawFrame=true
 MenuItemDrawStrongFocus=false
 MenuOpacity=0
