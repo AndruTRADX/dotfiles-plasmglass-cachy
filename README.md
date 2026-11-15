@@ -28,7 +28,7 @@ cd dotfiles
 | Sounds | **Wii** sound theme (downloaded from GitHub), plus `home/.config/*.notifyrc` so more Plasma actions use it: login/logout, lock/unlock, screenshot/recording saved, network and Bluetooth connect, KDE Connect ping/call/notification, empty trash, admin password prompt, low disk space, critical errors |
 | Shortcuts | `shortcuts.sh`: a layout for a 60% keyboard, everything on letters and digits with **I J K L** as arrows (see [Keyboard shortcuts](#keyboard-shortcuts)) |
 | Fish | `home/.config/fish/` (config + PATH + functions `cls`, `fixaudio`, `fixmicro`, `fixglass`, `shortcuts`), **pure** prompt |
-| Colours | `AppleDarkPurple` / `AppleLightPurple`, Plasma Style `MacTahoe-Light` / `AppleDark-ALL` (see-through `-Glass` copies built by the scripts), GTK `MacTahoe-Dark-purple` |
+| Colours | `AppleDarkPurple` / `AppleLightPurple`, Plasma Style `MacTahoe-Light` / `AppleDark-ALL` (see-through `-Glass` copies built by the scripts, without the 1 px black line their shadows draw around panels, popups and tooltips), GTK `MacTahoe-Dark-purple` |
 | Icons | **MacTahoe-purple-dark** (downloaded from GitHub), `capitaine-cursors` cursor |
 | Global Themes | **Liquid Glass Dark** and **Liquid Glass Light** (System Settings > Global Theme). Applying one, even with "Desktop and window layout" ticked, gives back this exact setup; the glass tint follows automatically (`glass-follow.sh`) |
 | Wallpaper & splash | MacTahoe wallpaper (light/dark variants) on desktop + lock screen, MacTahoe boot splash |

@@ -35,6 +35,8 @@ CONTRAST_EFFECT="${CONTRAST_EFFECT:-off}"   # off = disable KWin's Background Co
 CORNER_RADIUS="${CORNER_RADIUS:-24}"    # px: window corners, for Rounded Corners and the glass behind windows. The MacTahoe
                                         # title bar corners are 24 px circles: any other radius or a squircle leaves a double
                                         # edge, and a smaller glass radius leaves a see-through sliver at each corner
+DOCK_RADIUS="${DOCK_RADIUS:-24}"        # px: panel (top bar and dock) corners, ~ 1/3 of the panel thickness. Plasma
+                                        # popups count as windows for Glass, so they keep CORNER_RADIUS whatever this is
 
 MODE="${1:-auto}"
 if [[ "$MODE" == auto ]]; then MODE="$(detect_mode)"; fi
@@ -104,7 +106,7 @@ w UseDeclaredCornerRadius false
 w TopCornerRadius "$CORNER_RADIUS"     # windows only: menus and panels have their own radius below
 w BottomCornerRadius "$CORNER_RADIUS"
 w MenuCornerRadius 12
-w DockCornerRadius 24           # ~ 1/3 of the panel thickness
+w DockCornerRadius "$DOCK_RADIUS"
 w RoundCornersOfMaximizedWindows true
 w DynamicCorners false
 

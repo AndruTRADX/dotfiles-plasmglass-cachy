@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """Make the background of a Plasma Style SVG(Z) see-through, keeping margins/shadows/masks.
+Also drops the solid 1 px line each shadow piece draws against the frame (keeping its soft gradient):
+with the frame faded it shows as a black outline, and its fixed corner radius doesn't follow Glass's.
 usage: glassify.py FILE FACTOR   (FACTOR 0..1 = share of the original opacity to keep)
 exit 0 = file rewritten, 3 = skipped (nothing to change / no usable mask)"""
 import gzip, re, sys
@@ -45,6 +47,23 @@ def walk(el, in_tint, protected):
         walk(c, in_tint, protected)
 walk(root, False, False)
 
+# Shadow pieces are a gradient (the soft shadow) plus a solid-colour line hugging the frame edge
+SHADOW = re.compile(r"^(?:[a-z]+-)*shadow-(?:top|bottom|left|right|topleft|topright|bottomleft|bottomright)$")
+def fill_of(el):
+    m = re.search(r"(?:^|;)\s*fill:([^;]+)", el.get("style", ""))
+    return (m.group(1) if m else el.get("fill", "")).strip()
+lines = 0
+for g in root.iter():
+    if not SHADOW.match(g.get("id", "")):
+        continue
+    for e in g.iter():
+        blurred = "filter:url" in e.get("style", "") or e.get("filter")   # a blurred solid shape is the shadow itself
+        if local(e.tag) in SHAPES and fill_of(e).startswith("#") and not blurred:
+            d = dict(kv.split(":", 1) for kv in e.get("style", "").split(";") if ":" in kv)
+            d["opacity"] = "0"
+            e.set("style", ";".join(f"{k}:{v}" for k, v in d.items()))
+            lines += 1
+
 # Plasma looks for masks named "mask-<prefix>center" (e.g. mask-floating-center), not "<prefix>-mask-center".
 # Without one it derives the panel shape from the background's alpha, which is empty once faded: PanelView
 # then falls back to the whole window and, because an empty mask never "changes", never refreshes it when the
@@ -67,7 +86,7 @@ for i, e in list(ids.items()):
     parent[e].insert(list(parent[e]).index(e) + 1, mk)
     ids[mid] = mk
 
-if not changed or not had_mask:
+if not (changed or lines) or not had_mask:
     sys.exit(3)
 out = ET.tostring(root, encoding="utf-8", xml_declaration=True)
 open(path, "wb").write(gzip.compress(out) if gz else out)
