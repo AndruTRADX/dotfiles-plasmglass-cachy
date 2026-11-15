@@ -21,26 +21,43 @@ SRC_LIGHT="$TMP/mactahoe/plasma/look-and-feel/com.github.vinceliuice.MacTahoe-Li
 # dumpCurrentLayoutJS stores desktop widget positions by applet id, but ids change on every load,
 # so append a step that rebuilds the position map from the widgets actually created.
 "$QDBUS" org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.dumpCurrentLayoutJS > "$TMP/layout.js"
-# Paths under this home (e.g. the wallpaper) must work for any user name: userDataPath() is the home folder.
-sed -i "s|\"file://$HOME/|\"file://\" + userDataPath() + \"/|g" "$TMP/layout.js"
-cat >> "$TMP/layout.js" <<'JS'
+# Paths under this home (wallpaper, slideshow folder, launcher icon) must work for any user name:
+# userDataPath() is the home folder.
+sed -i -e "s|\"file://$HOME/|\"file://\" + userDataPath() + \"/|g" -e "s|\"$HOME/|userDataPath() + \"/|g" "$TMP/layout.js"
 
-// Desktop widget positions (x,y,width,height) inside the area left free by the panels,
-// computed from the screen size so the layout also fits resolutions other than 1920x1080.
-var PANELS_HEIGHT = 136;   // top bar + dock: screen height minus the free desktop area
+# Desktop widget positions (x,y,w,h) by plugin, read from the live desktop: wherever you dragged them
+positions="$(python3 - "$CFG/plasma-org.kde.plasma.desktop-appletsrc" <<'PY'
+import json, re, sys
+groups, cur = {}, None
+for line in open(sys.argv[1], encoding="utf-8"):
+    line = line.rstrip("\n")
+    if line.startswith("["):
+        cur = line; groups[cur] = {}
+    elif cur and "=" in line:
+        k, v = line.split("=", 1); groups[cur][k] = v
+pos = {}
+for head, keys in groups.items():
+    if re.fullmatch(r"\[Containments\]\[\d+\]", head) and keys.get("plugin") == "org.kde.plasma.folder":
+        for item in keys.get("ItemGeometriesHorizontal", "").split(";"):
+            m = re.fullmatch(r"Applet-(\d+):(-?\d+,-?\d+,\d+,\d+),\d+", item)
+            plugin = m and groups.get(f"{head}[Applets][{m.group(1)}]", {}).get("plugin")
+            if plugin:
+                pos[plugin] = m.group(2)
+print(json.dumps(pos))
+PY
+)"
+printf '\nvar POSITIONS = %s;\n' "$positions" >> "$TMP/layout.js"
+cat >> "$TMP/layout.js" <<'JS'
 desktops().forEach(function (d) {
     var geo = [];
     var r = screenGeometry(d.screen);
-    var W = Math.round(r.width), H = Math.round(r.height) - PANELS_HEIGHT;
     d.widgets().forEach(function (w) {
-        var g = null;
-        if (w.type === "com.github.prayag2.modernclock") {
-            g = (Math.round(W / 2) - 304) + "," + (H - 208) + ",640,160";
-        } else if (w.type === "luisbocanegra.audio.visualizer") {
+        if (w.type === "com.jaxparrow07.macoswidgets.weather") {
+            // the dump drops the city name (non-ASCII?), but keeps its coordinates
             w.currentConfigGroup = ["General"];
-            g = ((w.readConfig("orientation", "2") == "3") ? (W - 160) : 0) + ",0,160," + H;
+            w.writeConfig("location", "Bogotá");
         }
-        if (g) geo.push("Applet-" + w.id + ":" + g + ",0");
+        if (POSITIONS[w.type]) geo.push("Applet-" + w.id + ":" + POSITIONS[w.type] + ",0");
     });
     d.currentConfigGroup = [];
     d.writeConfig("ItemGeometries-" + Math.round(r.width) + "x" + Math.round(r.height), geo.join(";") + ";");
@@ -48,13 +65,17 @@ desktops().forEach(function (d) {
     d.reloadConfig();
 });
 
-// The dump leaves out which plasmoids the system tray shows: add the extra ones back, and drop
-// the laptop ones (desktop PC). Dropped items stay in knownItems, or the tray re-adds them as new.
+// The dump leaves out the system tray's own settings: add the extra plasmoids back, drop the laptop
+// ones (desktop PC) and the trash (it lives in the dock), and hide the rarely used icons behind the
+// arrow, as in macOS. Dropped items stay in knownItems, or the tray re-adds them as new.
 panels().forEach(function (p) {
     p.widgets("org.kde.plasma.systemtray").forEach(function (w) {
-        var add = ["org.kde.plasma.trash", "org.kde.plasma.diskquota"];
-        var drop = ["org.kde.plasma.battery", "org.kde.plasma.brightness", "org.kde.plasma.dwellclicker"];
+        var add = ["org.kde.plasma.diskquota"];
+        var drop = ["org.kde.plasma.battery", "org.kde.plasma.brightness", "org.kde.plasma.dwellclicker",
+                    "org.kde.plasma.trash"];
         w.currentConfigGroup = ["General"];
+        w.writeConfig("hiddenItems", ["org.kde.plasma.clipboard", "org.kde.kdeconnect", "org.kde.plasma.weather",
+                                      "org.kde.kscreen", "org.kde.plasma.diskquota", "steam", "Cachy-Update"]);
         ["extraItems", "knownItems"].forEach(function (k) {
             var v = w.readConfig(k, []);
             if (typeof v === "string") v = v ? v.split(",") : [];

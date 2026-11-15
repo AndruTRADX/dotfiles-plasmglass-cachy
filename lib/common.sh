@@ -68,6 +68,18 @@ clone_pinned() {  # $1 = url, $2 = commit, $3 = destination
   git -C "$3" checkout -q FETCH_HEAD
 }
 
+# Plasma widgets (pinned the same way). Application Title Bar: the active app's name in bold in the
+# top bar, as in macOS. Liquid Glass widgets: Tahoe-style desktop widgets (packages/<name> in that repo).
+APP_TITLE_BAR_URL=https://github.com/antroids/application-title-bar/releases/download/v0.10.0/application-title-bar.plasmoid
+APP_TITLE_BAR_SHA256=fb90a257ba9cce41deea27aef6f41a650a3a788af5542967d1d2c072c8ceac63
+LIQUID_WIDGETS_URL=https://github.com/jaxparrow07/liquidglass-kde-widgets.git
+LIQUID_WIDGETS_REV=0d1b9fe34ca3d21fc6f31b599990490d637ce8f8
+LIQUID_WIDGETS=(clock-digital calendar weather music)
+
+install_plasmoid() {  # $1 = .plasmoid file or package folder; upgrades it when already installed
+  kpackagetool6 -t Plasma/Applet -u "$1" >/dev/null 2>&1 || kpackagetool6 -t Plasma/Applet -i "$1" >/dev/null
+}
+
 # Serialise theme.sh / glass-follow.sh: both write kwinrc and the GTK settings.ini files.
 # The lock is held on fd 9 until the script exits.
 take_lock() {

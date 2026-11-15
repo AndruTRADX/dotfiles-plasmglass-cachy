@@ -5,76 +5,116 @@ RightButton;NoModifier=org.kde.contextmenu
 [ActionPlugins][1]
 RightButton;NoModifier=org.kde.contextmenu
 
-[Containments][558]
-ItemGeometries-1920x1080=Applet-560:0,0,160,944,0;Applet-559:656,736,640,160,0;Applet-561:1760,0,160,944,0;
-ItemGeometriesHorizontal=Applet-560:0,0,160,944,0;Applet-559:656,736,640,160,0;Applet-561:1760,0,160,944,0;
+[Containments][626]
+ItemGeometries-1920x1080=Applet-662:32,48,176,176,0;Applet-663:224,48,176,176,0;Applet-664:32,240,368,176,0;Applet-665:32,432,368,176,0;
+ItemGeometries-640x480=Applet-628:0,0,160,352,0;Applet-629:480,0,160,192,0;
+ItemGeometriesHorizontal=Applet-662:32,48,176,176,0;Applet-663:224,48,176,176,0;Applet-664:32,240,368,176,0;Applet-665:32,432,368,176,0;
 activityId=f055b4a1-2b0a-491d-a8ee-c7cc4b792e82
 formfactor=0
 immutability=1
 lastScreen=0
 location=0
 plugin=org.kde.plasma.folder
-wallpaperplugin=org.kde.image
+wallpaperplugin=org.kde.slideshow
 
-[Containments][558][Applets][559]
+[Containments][626][Applets][662]
 immutability=1
-plugin=com.github.prayag2.modernclock
+plugin=com.jaxparrow07.macoswidgets.clock-square
 
-[Containments][558][Applets][560]
-immutability=1
-plugin=luisbocanegra.audio.visualizer
-
-[Containments][558][Applets][560][Configuration]
-popupHeight=375
-popupWidth=525
-
-[Containments][558][Applets][560][Configuration][ConfigDialog]
+[Containments][626][Applets][662][Configuration][ConfigDialog]
 DialogHeight=630
 DialogWidth=810
 
-[Containments][558][Applets][560][Configuration][General]
-barColors={"alpha":1,"colorsOrientation":0,"custom":"#ffffff","enabled":false,"followColor":0,"hueEnd":360,"hueStart":0,"image":{"fillMode":2,"source":""},"lightness":0.5,"lightnessEnabled":false,"list":["#ED8796","#A6DA95","#EED49F","#8AADF4","#F5BDE6","#8BD5CA","#f5a97f"],"reverseList":false,"saturation":0.5,"saturationEnabled":false,"smoothGradient":true,"sourceType":0,"systemColor":"highlightColor","systemColorSet":"Window"}
-desktopWidgetBg=4
-disableLeftClick=true
-framerate=20
-hideToolTip=true
-inactiveBlockColors={"alpha":0.3,"colorsOrientation":0,"custom":"#013eff","enabled":false,"followColor":0,"hueEnd":360,"hueStart":0,"image":{"fillMode":2,"source":""},"lightness":0.5,"lightnessEnabled":false,"list":["#ED8796","#A6DA95","#EED49F","#8AADF4","#F5BDE6","#8BD5CA","#f5a97f"],"reverseList":false,"saturation":0.5,"saturationEnabled":false,"smoothGradient":true,"sourceType":1,"systemColor":"textColor","systemColorSet":"Window"}
-orientation=2
-pauseOnFullScreenWindow=true
-pauseOnMaximizedWindow=true
-visualizerStyle=2
-waveFillColors={"alpha":0.3,"colorsOrientation":0,"custom":"#ffffff","enabled":false,"followColor":0,"hueEnd":360,"hueStart":0,"image":{"fillMode":2,"source":""},"lightness":0.5,"lightnessEnabled":false,"list":["#ED8796","#A6DA95","#EED49F","#8AADF4","#F5BDE6","#8BD5CA","#f5a97f"],"reverseList":false,"saturation":0.5,"saturationEnabled":false,"smoothGradient":true,"sourceType":0,"systemColor":"highlightColor","systemColorSet":"Window"}
+[Containments][626][Applets][662][Configuration][General]
+appearance=2
+blurAlgorithm=1
+blurRadiusPx=4
+chromaStrengthPct=16
+cornerRadius=73
+realtimeRefraction=false
+refractIORx100=180
+refractThickness=35
+specStrengthPct=70
+styleMode=0
+tintAlphaPct=18
 
-[Containments][558][Applets][561]
+[Containments][626][Applets][663]
 immutability=1
-plugin=luisbocanegra.audio.visualizer
+plugin=com.jaxparrow07.macoswidgets.calendar
 
-[Containments][558][Applets][561][Configuration]
-popupHeight=375
-popupWidth=525
-
-[Containments][558][Applets][561][Configuration][ConfigDialog]
+[Containments][626][Applets][663][Configuration][ConfigDialog]
 DialogHeight=630
 DialogWidth=810
 
-[Containments][558][Applets][561][Configuration][General]
-barColors={"alpha":1,"colorsOrientation":0,"custom":"#ffffff","enabled":false,"followColor":0,"hueEnd":360,"hueStart":0,"image":{"fillMode":2,"source":""},"lightness":0.5,"lightnessEnabled":false,"list":["#ED8796","#A6DA95","#EED49F","#8AADF4","#F5BDE6","#8BD5CA","#f5a97f"],"reverseList":false,"saturation":0.5,"saturationEnabled":false,"smoothGradient":true,"sourceType":0,"systemColor":"highlightColor","systemColorSet":"Window"}
-desktopWidgetBg=4
-disableLeftClick=true
-framerate=20
-hideToolTip=true
-inactiveBlockColors={"alpha":0.3,"colorsOrientation":0,"custom":"#013eff","enabled":false,"followColor":0,"hueEnd":360,"hueStart":0,"image":{"fillMode":2,"source":""},"lightness":0.5,"lightnessEnabled":false,"list":["#ED8796","#A6DA95","#EED49F","#8AADF4","#F5BDE6","#8BD5CA","#f5a97f"],"reverseList":false,"saturation":0.5,"saturationEnabled":false,"smoothGradient":true,"sourceType":1,"systemColor":"textColor","systemColorSet":"Window"}
-orientation=3
-pauseOnFullScreenWindow=true
-pauseOnMaximizedWindow=true
-visualizerStyle=2
-waveFillColors={"alpha":0.3,"colorsOrientation":0,"custom":"#ffffff","enabled":false,"followColor":0,"hueEnd":360,"hueStart":0,"image":{"fillMode":2,"source":""},"lightness":0.5,"lightnessEnabled":false,"list":["#ED8796","#A6DA95","#EED49F","#8AADF4","#F5BDE6","#8BD5CA","#f5a97f"],"reverseList":false,"saturation":0.5,"saturationEnabled":false,"smoothGradient":true,"sourceType":0,"systemColor":"highlightColor","systemColorSet":"Window"}
-waveMode=1
+[Containments][626][Applets][663][Configuration][General]
+appearance=2
+blurAlgorithm=1
+blurRadiusPx=4
+chromaStrengthPct=16
+cornerRadius=73
+realtimeRefraction=false
+refractIORx100=180
+refractThickness=35
+specStrengthPct=70
+styleMode=0
+tintAlphaPct=18
 
-[Containments][558][Wallpaper][org.kde.image][General]
-Image=file:///home/andrutradx/.local/share/wallpapers/MacTahoe
+[Containments][626][Applets][664]
+immutability=1
+plugin=com.jaxparrow07.macoswidgets.weather
 
-[Containments][562]
+[Containments][626][Applets][664][Configuration][ConfigDialog]
+DialogHeight=630
+DialogWidth=810
+
+[Containments][626][Applets][664][Configuration][General]
+appearance=2
+blurAlgorithm=1
+blurRadiusPx=4
+chromaStrengthPct=16
+cornerRadius=73
+latitude=4.711
+location=Bogotá
+longitude=-74.0721
+realtimeRefraction=false
+refractIORx100=180
+refractThickness=35
+specStrengthPct=70
+styleMode=0
+temperatureUnit=0
+tintAlphaPct=18
+
+[Containments][626][Applets][665]
+immutability=1
+plugin=com.jaxparrow07.macoswidgets.music
+
+[Containments][626][Applets][665][Configuration][ConfigDialog]
+DialogHeight=630
+DialogWidth=810
+
+[Containments][626][Applets][665][Configuration][General]
+appearance=2
+blurAlgorithm=1
+blurRadiusPx=4
+chromaStrengthPct=16
+cornerRadius=73
+realtimeRefraction=false
+refractIORx100=180
+styleMode=0
+tintAlphaPct=18
+
+[Containments][626][ConfigDialog]
+DialogHeight=630
+DialogWidth=810
+
+[Containments][626][Wallpaper][org.kde.image][General]
+Image=/home/andrutradx/Pictures/wallpapers/anime-girl-with-multicolored-eye.png
+
+[Containments][626][Wallpaper][org.kde.slideshow][General]
+Image=file:///home/andrutradx/Pictures/wallpapers/hatsune-miku-6.png
+SlidePaths=/home/andrutradx/Pictures/wallpapers/
+
+[Containments][630]
 activityId=
 formfactor=2
 immutability=1
@@ -83,44 +123,49 @@ location=3
 plugin=org.kde.panel
 wallpaperplugin=org.kde.image
 
-[Containments][562][Applets][563]
+[Containments][630][Applets][631]
 immutability=1
 plugin=org.kde.plasma.kickoff
 
-[Containments][562][Applets][563][Configuration]
+[Containments][630][Applets][631][Configuration]
 popupHeight=499
 popupWidth=639
 
-[Containments][562][Applets][563][Configuration][General]
+[Containments][630][Applets][631][Configuration][ConfigDialog]
+DialogHeight=630
+DialogWidth=810
+
+[Containments][630][Applets][631][Configuration][General]
 favoritesPortedToKAstats=true
+icon=/home/andrutradx/.local/share/icons/menu-ghost.svg
 
-[Containments][562][Applets][563][Configuration][Shortcuts]
+[Containments][630][Applets][631][Configuration][Shortcuts]
 global=Alt+F1
 
-[Containments][562][Applets][563][Shortcuts]
+[Containments][630][Applets][631][Shortcuts]
 global=Alt+F1
 
-[Containments][562][Applets][564]
+[Containments][630][Applets][632]
 immutability=1
 plugin=org.kde.plasma.appmenu
 
-[Containments][562][Applets][565]
+[Containments][630][Applets][633]
 immutability=1
 plugin=org.kde.plasma.panelspacer
 
-[Containments][562][Applets][566]
+[Containments][630][Applets][634]
 immutability=1
 plugin=org.kde.plasma.shutdownorswitch
 
-[Containments][562][Applets][566][Configuration]
+[Containments][630][Applets][634][Configuration]
 popupHeight=137
 popupWidth=216
 
-[Containments][562][Applets][567]
+[Containments][630][Applets][635]
 immutability=1
 plugin=org.kde.plasma.marginsseparator
 
-[Containments][562][Applets][568]
+[Containments][630][Applets][636]
 activityId=
 formfactor=0
 immutability=1
@@ -131,90 +176,87 @@ popupHeight=432
 popupWidth=432
 wallpaperplugin=org.kde.image
 
-[Containments][562][Applets][568][Applets][569]
+[Containments][630][Applets][636][Applets][637]
 immutability=1
 plugin=org.kde.kdeconnect
 
-[Containments][562][Applets][568][Applets][570]
+[Containments][630][Applets][636][Applets][638]
 immutability=1
 plugin=org.kde.plasma.cameraindicator
 
-[Containments][562][Applets][568][Applets][571]
+[Containments][630][Applets][636][Applets][639]
 immutability=1
 plugin=org.kde.plasma.clipboard
 
-[Containments][562][Applets][568][Applets][572]
+[Containments][630][Applets][636][Applets][640]
 immutability=1
 plugin=org.kde.plasma.devicenotifier
 
-[Containments][562][Applets][568][Applets][573]
+[Containments][630][Applets][636][Applets][641]
 immutability=1
 plugin=org.kde.plasma.manage-inputmethod
 
-[Containments][562][Applets][568][Applets][574]
+[Containments][630][Applets][636][Applets][642]
 immutability=1
 plugin=org.kde.plasma.notifications
 
-[Containments][562][Applets][568][Applets][575]
+[Containments][630][Applets][636][Applets][643]
 immutability=1
 plugin=org.kde.plasma.keyboardindicator
 
-[Containments][562][Applets][568][Applets][576]
+[Containments][630][Applets][636][Applets][644]
 immutability=1
 plugin=org.kde.plasma.weather
 
-[Containments][562][Applets][568][Applets][577]
+[Containments][630][Applets][636][Applets][645]
 immutability=1
 plugin=org.kde.kscreen
 
-[Containments][562][Applets][568][Applets][579]
+[Containments][630][Applets][636][Applets][647]
 immutability=1
 plugin=org.kde.plasma.keyboardlayout
 
-[Containments][562][Applets][568][Applets][580]
+[Containments][630][Applets][636][Applets][648]
 immutability=1
 plugin=org.kde.plasma.networkmanagement
 
-[Containments][562][Applets][568][Applets][581]
+[Containments][630][Applets][636][Applets][649]
 immutability=1
 plugin=org.kde.plasma.volume
 
-[Containments][562][Applets][568][Applets][581][Configuration][General]
+[Containments][630][Applets][636][Applets][649][Configuration][General]
 migrated=true
 
-[Containments][562][Applets][568][Applets][587]
-immutability=1
-plugin=org.kde.plasma.trash
-
-[Containments][562][Applets][568][Applets][588]
+[Containments][630][Applets][636][Applets][656]
 immutability=1
 plugin=org.kde.plasma.diskquota
 
-[Containments][562][Applets][568][Applets][591]
-immutability=1
-plugin=org.kde.plasma.mediacontroller
-
-[Containments][562][Applets][568][Applets][592]
+[Containments][630][Applets][636][Applets][657]
 immutability=1
 plugin=org.kde.plasma.bluetooth
 
-[Containments][562][Applets][568][General]
-extraItems=org.kde.kdeconnect,org.kde.plasma.bluetooth,org.kde.plasma.cameraindicator,org.kde.plasma.clipboard,org.kde.plasma.devicenotifier,org.kde.plasma.manage-inputmethod,org.kde.plasma.mediacontroller,org.kde.plasma.notifications,org.kde.plasma.keyboardindicator,org.kde.plasma.weather,org.kde.kscreen,org.kde.plasma.keyboardlayout,org.kde.plasma.networkmanagement,org.kde.plasma.volume,org.kde.plasma.trash,org.kde.plasma.diskquota
-knownItems=org.kde.kdeconnect,org.kde.plasma.bluetooth,org.kde.plasma.cameraindicator,org.kde.plasma.clipboard,org.kde.plasma.devicenotifier,org.kde.plasma.manage-inputmethod,org.kde.plasma.mediacontroller,org.kde.plasma.notifications,org.kde.plasma.keyboardindicator,org.kde.plasma.weather,org.kde.kscreen,org.kde.plasma.keyboardlayout,org.kde.plasma.networkmanagement,org.kde.plasma.volume,org.kde.plasma.trash,org.kde.plasma.diskquota,org.kde.plasma.battery,org.kde.plasma.brightness,org.kde.plasma.dwellclicker
+[Containments][630][Applets][636][Applets][658]
+immutability=1
+plugin=org.kde.plasma.mediacontroller
 
-[Containments][562][Applets][582]
+[Containments][630][Applets][636][General]
+extraItems=org.kde.kdeconnect,org.kde.plasma.bluetooth,org.kde.plasma.cameraindicator,org.kde.plasma.clipboard,org.kde.plasma.devicenotifier,org.kde.plasma.manage-inputmethod,org.kde.plasma.mediacontroller,org.kde.plasma.notifications,org.kde.plasma.keyboardindicator,org.kde.plasma.weather,org.kde.kscreen,org.kde.plasma.keyboardlayout,org.kde.plasma.networkmanagement,org.kde.plasma.volume,org.kde.plasma.diskquota
+hiddenItems=org.kde.plasma.clipboard,org.kde.kdeconnect,org.kde.plasma.weather,org.kde.kscreen,org.kde.plasma.diskquota,steam,Cachy-Update
+knownItems=org.kde.kdeconnect,org.kde.plasma.bluetooth,org.kde.plasma.cameraindicator,org.kde.plasma.clipboard,org.kde.plasma.devicenotifier,org.kde.plasma.manage-inputmethod,org.kde.plasma.mediacontroller,org.kde.plasma.notifications,org.kde.plasma.keyboardindicator,org.kde.plasma.weather,org.kde.kscreen,org.kde.plasma.battery,org.kde.plasma.brightness,org.kde.plasma.dwellclicker,org.kde.plasma.keyboardlayout,org.kde.plasma.networkmanagement,org.kde.plasma.volume,org.kde.plasma.trash,org.kde.plasma.diskquota
+
+[Containments][630][Applets][650]
 immutability=1
 plugin=org.kde.plasma.marginsseparator
 
-[Containments][562][Applets][583]
+[Containments][630][Applets][651]
 immutability=1
 plugin=org.kde.plasma.digitalclock
 
-[Containments][562][Applets][583][Configuration]
+[Containments][630][Applets][651][Configuration]
 popupHeight=451
 popupWidth=525
 
-[Containments][562][Applets][583][Configuration][Appearance]
+[Containments][630][Applets][651][Configuration][Appearance]
 autoFontAndSize=false
 customDateFormat=ddd d MMM
 dateDisplayFormat=BesideTime
@@ -224,14 +266,34 @@ fontSize=10
 fontWeight=500
 showDate=true
 
-[Containments][562][Applets][584]
+[Containments][630][Applets][652]
 immutability=1
 plugin=org.kde.plasma.showdesktop
 
-[Containments][562][General]
-AppletOrder=563;564;565;566;567;568;582;583;584
+[Containments][630][Applets][659]
+immutability=1
+plugin=com.github.antroids.application-title-bar
 
-[Containments][585]
+[Containments][630][Applets][659][Configuration][Appearance]
+widgetElements=windowTitle
+windowTitleFontBold=true
+windowTitleFontSize=10
+windowTitleFontSizeMode=0
+windowTitleHideEmpty=true
+windowTitleMarginsLeft=6
+windowTitleMarginsRight=2
+windowTitleSource=0
+windowTitleUndefined=
+
+[Containments][630][Applets][659][Configuration][Behavior]
+widgetMouseAreaLeftDoubleClickAction=None
+widgetMouseAreaMiddleClickAction=None
+widgetMouseAreaWheelEnabled=false
+
+[Containments][630][General]
+AppletOrder=631;659;632;633;634;635;636;650;651;652
+
+[Containments][653]
 activityId=
 formfactor=2
 immutability=1
@@ -240,15 +302,16 @@ location=4
 plugin=org.kde.panel
 wallpaperplugin=org.kde.image
 
-[Containments][585][Applets][586]
+[Containments][653][Applets][654]
 immutability=1
 plugin=org.kde.plasma.icontasks
 
-[Containments][585][Applets][586][Configuration][General]
-launchers=preferred://filemanager,preferred://browser,applications:org.kde.konsole.desktop,applications:systemsettings.desktop
+[Containments][653][Applets][654][Configuration][General]
+launchers=applications:com.microsoft.VSCode.desktop,applications:jetbrains-clion.desktop,applications:org.kde.konsole.desktop,applications:brave-browser.desktop,applications:firefox.desktop,preferred://filemanager,applications:systemsettings.desktop
 
-[Containments][585][General]
-AppletOrder=586
+[Containments][653][General]
+AppletOrder=654
 
 [ScreenMapping]
 itemsOnDisabledScreens=
+screenMapping=

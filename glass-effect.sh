@@ -3,6 +3,7 @@
 # a lens only at the edge (a ~20 px band that pulls the image in from further inside, no distortion
 # in the body), hardly any blur, two 1 px white highlights (top-left and bottom-right), no chromatic
 # aberration, and a grey wash that lifts blacks and dims whites so text stays readable without blur.
+# Also rounds all four window corners like macOS (KDE Rounded Corners effect), matching the MacTahoe title bar.
 # Usage: ./glass-effect.sh [auto|light|dark]   (auto = follow the current colour scheme)
 #
 # Only touches KWin (~/.config/kwinrc). Colours / Plasma Style / panels live in theme.sh.
@@ -31,6 +32,9 @@ SATURATION="${SATURATION:-1.8}"         # the wash greys the backdrop out: this 
 BODY_REFRACTION="${BODY_REFRACTION:-false}" # true = also bend the image further inside; Apple's lens stops at the edge band
 LENS_WINDOWS="${LENS_WINDOWS:-false}"       # true = also bend the backdrop behind normal windows (costs GPU on every repaint)
 CONTRAST_EFFECT="${CONTRAST_EFFECT:-off}"   # off = disable KWin's Background Contrast (extra dark tint)
+CORNER_RADIUS="${CORNER_RADIUS:-24}"    # px: window corners, for Rounded Corners and the glass behind windows. The MacTahoe
+                                        # title bar corners are 24 px circles: any other radius or a squircle leaves a double
+                                        # edge, and a smaller glass radius leaves a see-through sliver at each corner
 
 MODE="${1:-auto}"
 if [[ "$MODE" == auto ]]; then MODE="$(detect_mode)"; fi
@@ -97,8 +101,8 @@ w EdgeLighting false
 
 # ---- corners ----
 w UseDeclaredCornerRadius false
-w TopCornerRadius 16
-w BottomCornerRadius 16
+w TopCornerRadius "$CORNER_RADIUS"     # windows only: menus and panels have their own radius below
+w BottomCornerRadius "$CORNER_RADIUS"
 w MenuCornerRadius 12
 w DockCornerRadius 24           # ~ 1/3 of the panel thickness
 w RoundCornersOfMaximizedWindows true
@@ -113,8 +117,28 @@ w DecorWindowClasses plasmashell
 w BlurMatching false
 w BlurNonMatching true
 
+# ---- window corners (kwin-effect-rounded-corners): all four rounded, like macOS ----
+# Same circle as the MacTahoe title bar, so the bottom corners match the top ones. No outlines: the decoration
+# draws its own edge (extra dark/light lines looked bad). Maximized, tiled and fullscreen windows stay square.
+r() { set_key Round-Corners "$1" "$2"; }
+plugin kwin4_effect_shapecornersEnabled true
+r Size "$CORNER_RADIUS";              r InactiveCornerRadius "$CORNER_RADIUS"
+r UseSquircleShape false
+r UseNativeDecorationShadows true     # keep the window decoration's own shadow
+r OuterOutlineThickness 0;            r InactiveOuterOutlineThickness 0
+r OutlineThickness 0;                 r InactiveOutlineThickness 0
+r SecondOutlineThickness 0;           r InactiveSecondOutlineThickness 0
+
 printf '%s\n' "${BATCH[@]}" | python3 "$LIB/kconf.py" "$CFG/kwinrc"
 reconfigure_kwin
+if [[ -n "$QDBUS" ]]; then
+  fx=(org.kde.KWin /Effects org.kde.kwin.Effects)
+  if [[ "$("$QDBUS" "${fx[@]}.isEffectLoaded" kwin4_effect_shapecorners 2>/dev/null)" == true ]]; then
+    "$QDBUS" "${fx[@]}.reconfigureEffect" kwin4_effect_shapecorners >/dev/null || true
+  elif [[ "$("$QDBUS" "${fx[@]}.loadEffect" kwin4_effect_shapecorners 2>/dev/null)" != true ]]; then
+    echo "Rounded Corners did not load: install kwin-effect-rounded-corners-git, or run fixglass after a KWin upgrade" >&2
+  fi
+fi
 if [[ -n "$QDBUS" ]]; then
   "$QDBUS" org.kde.KWin /Effects org.kde.kwin.Effects.$([[ "$CONTRAST_EFFECT" == off ]] && echo unloadEffect || echo loadEffect) contrast >/dev/null || true
 fi

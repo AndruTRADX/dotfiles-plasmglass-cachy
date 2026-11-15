@@ -17,8 +17,8 @@ sudo pacman -S --needed --noconfirm \
   capitaine-cursors ttf-jetbrains-mono-nerd bluez-utils paru \
   openlinkhub
 
-say "AUR packages (paru): glass, Darkly, Kurve"
-paru -S --needed --noconfirm kwin-effects-glass-git darkly plasma6-applets-kurve-git
+say "AUR packages (paru): glass, rounded corners, Darkly"
+paru -S --needed --noconfirm kwin-effects-glass-git kwin-effect-rounded-corners-git darkly
 
 say "System tweaks: pacman hooks, OpenLinkHub, btrfs scrub, paccache, uinput, i2c group"
 sudo ./system/setup.sh
@@ -32,6 +32,13 @@ say "Wii sound theme"
 rm -rf "$DATA/sounds/Wii"
 clone_pinned "$WII_SOUNDS_URL" "$WII_SOUNDS_REV" "$DATA/sounds/Wii"
 rm -rf "$DATA/sounds/Wii/.git"
+
+say "Plasma widgets: Application Title Bar (bold app name), Liquid Glass desktop widgets"
+curl -fsSL -o "$TMP/title-bar.plasmoid" "$APP_TITLE_BAR_URL"
+echo "$APP_TITLE_BAR_SHA256  $TMP/title-bar.plasmoid" | sha256sum -c --quiet
+install_plasmoid "$TMP/title-bar.plasmoid"
+clone_pinned "$LIQUID_WIDGETS_URL" "$LIQUID_WIDGETS_REV" "$TMP/liquid"
+for w in "${LIQUID_WIDGETS[@]}"; do install_plasmoid "$TMP/liquid/packages/$w"; done
 
 # ------------------------------------------------------------- files
 say "Copying files to \$HOME"

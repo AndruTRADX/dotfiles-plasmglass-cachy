@@ -6,92 +6,140 @@ var layout = {
             "applets": [
                 {
                     "config": {
-                    },
-                    "geometry.height": 0,
-                    "geometry.width": 0,
-                    "geometry.x": 0,
-                    "geometry.y": 0,
-                    "plugin": "com.github.prayag2.modernclock",
-                    "title": "Modern Clock"
-                },
-                {
-                    "config": {
-                        "/": {
-                            "popupHeight": "375",
-                            "popupWidth": "525"
-                        },
                         "/ConfigDialog": {
                             "DialogHeight": "630",
                             "DialogWidth": "810"
                         },
                         "/General": {
-                            "barColors": "{\"alpha\":1,\"colorsOrientation\":0,\"custom\":\"#ffffff\",\"enabled\":false,\"followColor\":0,\"hueEnd\":360,\"hueStart\":0,\"image\":{\"fillMode\":2,\"source\":\"\"},\"lightness\":0.5,\"lightnessEnabled\":false,\"list\":[\"#ED8796\",\"#A6DA95\",\"#EED49F\",\"#8AADF4\",\"#F5BDE6\",\"#8BD5CA\",\"#f5a97f\"],\"reverseList\":false,\"saturation\":0.5,\"saturationEnabled\":false,\"smoothGradient\":true,\"sourceType\":0,\"systemColor\":\"highlightColor\",\"systemColorSet\":\"Window\"}",
-                            "desktopWidgetBg": "4",
-                            "disableLeftClick": "true",
-                            "framerate": "20",
-                            "hideToolTip": "true",
-                            "inactiveBlockColors": "{\"alpha\":0.3,\"colorsOrientation\":0,\"custom\":\"#013eff\",\"enabled\":false,\"followColor\":0,\"hueEnd\":360,\"hueStart\":0,\"image\":{\"fillMode\":2,\"source\":\"\"},\"lightness\":0.5,\"lightnessEnabled\":false,\"list\":[\"#ED8796\",\"#A6DA95\",\"#EED49F\",\"#8AADF4\",\"#F5BDE6\",\"#8BD5CA\",\"#f5a97f\"],\"reverseList\":false,\"saturation\":0.5,\"saturationEnabled\":false,\"smoothGradient\":true,\"sourceType\":1,\"systemColor\":\"textColor\",\"systemColorSet\":\"Window\"}",
-                            "orientation": "2",
-                            "pauseOnFullScreenWindow": "true",
-                            "pauseOnMaximizedWindow": "true",
-                            "visualizerStyle": "2",
-                            "waveFillColors": "{\"alpha\":0.3,\"colorsOrientation\":0,\"custom\":\"#ffffff\",\"enabled\":false,\"followColor\":0,\"hueEnd\":360,\"hueStart\":0,\"image\":{\"fillMode\":2,\"source\":\"\"},\"lightness\":0.5,\"lightnessEnabled\":false,\"list\":[\"#ED8796\",\"#A6DA95\",\"#EED49F\",\"#8AADF4\",\"#F5BDE6\",\"#8BD5CA\",\"#f5a97f\"],\"reverseList\":false,\"saturation\":0.5,\"saturationEnabled\":false,\"smoothGradient\":true,\"sourceType\":0,\"systemColor\":\"highlightColor\",\"systemColorSet\":\"Window\"}"
+                            "appearance": "2",
+                            "blurAlgorithm": "1",
+                            "blurRadiusPx": "4",
+                            "chromaStrengthPct": "16",
+                            "cornerRadius": "73",
+                            "realtimeRefraction": "false",
+                            "refractIORx100": "180",
+                            "refractScale": "",
+                            "refractThickness": "35",
+                            "specStrengthPct": "70",
+                            "styleMode": "0",
+                            "tintAlphaPct": "18"
                         }
                     },
                     "geometry.height": 0,
                     "geometry.width": 0,
                     "geometry.x": 0,
                     "geometry.y": 0,
-                    "plugin": "luisbocanegra.audio.visualizer",
-                    "title": "Plasma Audio Visualizer"
+                    "plugin": "com.jaxparrow07.macoswidgets.clock-square",
+                    "title": "macOS Clock Digital"
                 },
                 {
                     "config": {
-                        "/": {
-                            "popupHeight": "375",
-                            "popupWidth": "525"
-                        },
                         "/ConfigDialog": {
                             "DialogHeight": "630",
                             "DialogWidth": "810"
                         },
                         "/General": {
-                            "barColors": "{\"alpha\":1,\"colorsOrientation\":0,\"custom\":\"#ffffff\",\"enabled\":false,\"followColor\":0,\"hueEnd\":360,\"hueStart\":0,\"image\":{\"fillMode\":2,\"source\":\"\"},\"lightness\":0.5,\"lightnessEnabled\":false,\"list\":[\"#ED8796\",\"#A6DA95\",\"#EED49F\",\"#8AADF4\",\"#F5BDE6\",\"#8BD5CA\",\"#f5a97f\"],\"reverseList\":false,\"saturation\":0.5,\"saturationEnabled\":false,\"smoothGradient\":true,\"sourceType\":0,\"systemColor\":\"highlightColor\",\"systemColorSet\":\"Window\"}",
-                            "desktopWidgetBg": "4",
-                            "disableLeftClick": "true",
-                            "framerate": "20",
-                            "hideToolTip": "true",
-                            "inactiveBlockColors": "{\"alpha\":0.3,\"colorsOrientation\":0,\"custom\":\"#013eff\",\"enabled\":false,\"followColor\":0,\"hueEnd\":360,\"hueStart\":0,\"image\":{\"fillMode\":2,\"source\":\"\"},\"lightness\":0.5,\"lightnessEnabled\":false,\"list\":[\"#ED8796\",\"#A6DA95\",\"#EED49F\",\"#8AADF4\",\"#F5BDE6\",\"#8BD5CA\",\"#f5a97f\"],\"reverseList\":false,\"saturation\":0.5,\"saturationEnabled\":false,\"smoothGradient\":true,\"sourceType\":1,\"systemColor\":\"textColor\",\"systemColorSet\":\"Window\"}",
-                            "orientation": "3",
-                            "pauseOnFullScreenWindow": "true",
-                            "pauseOnMaximizedWindow": "true",
-                            "visualizerStyle": "2",
-                            "waveFillColors": "{\"alpha\":0.3,\"colorsOrientation\":0,\"custom\":\"#ffffff\",\"enabled\":false,\"followColor\":0,\"hueEnd\":360,\"hueStart\":0,\"image\":{\"fillMode\":2,\"source\":\"\"},\"lightness\":0.5,\"lightnessEnabled\":false,\"list\":[\"#ED8796\",\"#A6DA95\",\"#EED49F\",\"#8AADF4\",\"#F5BDE6\",\"#8BD5CA\",\"#f5a97f\"],\"reverseList\":false,\"saturation\":0.5,\"saturationEnabled\":false,\"smoothGradient\":true,\"sourceType\":0,\"systemColor\":\"highlightColor\",\"systemColorSet\":\"Window\"}",
-                            "waveMode": "1"
+                            "appearance": "2",
+                            "blurAlgorithm": "1",
+                            "blurRadiusPx": "4",
+                            "chromaStrengthPct": "16",
+                            "cornerRadius": "73",
+                            "realtimeRefraction": "false",
+                            "refractIORx100": "180",
+                            "refractScale": "",
+                            "refractThickness": "35",
+                            "specStrengthPct": "70",
+                            "styleMode": "0",
+                            "tintAlphaPct": "18"
                         }
                     },
                     "geometry.height": 0,
                     "geometry.width": 0,
                     "geometry.x": 0,
                     "geometry.y": 0,
-                    "plugin": "luisbocanegra.audio.visualizer",
-                    "title": "Plasma Audio Visualizer"
+                    "plugin": "com.jaxparrow07.macoswidgets.calendar",
+                    "title": "macOS Calendar"
+                },
+                {
+                    "config": {
+                        "/ConfigDialog": {
+                            "DialogHeight": "630",
+                            "DialogWidth": "810"
+                        },
+                        "/General": {
+                            "appearance": "2",
+                            "blurAlgorithm": "1",
+                            "blurRadiusPx": "4",
+                            "chromaStrengthPct": "16",
+                            "cornerRadius": "73",
+                            "latitude": "4.711",
+                            "longitude": "-74.0721",
+                            "realtimeRefraction": "false",
+                            "refractIORx100": "180",
+                            "refractScale": "",
+                            "refractThickness": "35",
+                            "specStrengthPct": "70",
+                            "styleMode": "0",
+                            "temperatureUnit": "0",
+                            "tintAlphaPct": "18"
+                        }
+                    },
+                    "geometry.height": 0,
+                    "geometry.width": 0,
+                    "geometry.x": 0,
+                    "geometry.y": 0,
+                    "plugin": "com.jaxparrow07.macoswidgets.weather",
+                    "title": "macOS Weather"
+                },
+                {
+                    "config": {
+                        "/ConfigDialog": {
+                            "DialogHeight": "630",
+                            "DialogWidth": "810"
+                        },
+                        "/General": {
+                            "appearance": "2",
+                            "blurAlgorithm": "1",
+                            "blurRadiusPx": "4",
+                            "chromaStrengthPct": "16",
+                            "cornerRadius": "73",
+                            "realtimeRefraction": "false",
+                            "refractIORx100": "180",
+                            "styleMode": "0",
+                            "tintAlphaPct": "18"
+                        }
+                    },
+                    "geometry.height": 0,
+                    "geometry.width": 0,
+                    "geometry.x": 0,
+                    "geometry.y": 0,
+                    "plugin": "com.jaxparrow07.macoswidgets.music",
+                    "title": "macOS Music"
                 }
             ],
             "config": {
                 "/": {
-                    "ItemGeometries-1920x1080": "Applet-175:0,0,160,944,0;Applet-174:656,736,640,160,0;Applet-176:1760,0,160,944,0;",
-                    "ItemGeometriesHorizontal": "Applet-175:0,0,160,944,0;Applet-174:656,736,640,160,0;Applet-176:1760,0,160,944,0;",
+                    "ItemGeometries-1920x1080": "Applet-662:32,48,176,176,0;Applet-663:224,48,176,176,0;Applet-664:32,240,368,176,0;Applet-665:32,432,368,176,0;",
+                    "ItemGeometries-640x480": "Applet-628:0,0,160,352,0;Applet-629:480,0,160,192,0;",
+                    "ItemGeometriesHorizontal": "Applet-662:32,48,176,176,0;Applet-663:224,48,176,176,0;Applet-664:32,240,368,176,0;Applet-665:32,432,368,176,0;",
                     "formfactor": "0",
                     "immutability": "1",
                     "lastScreen": "0",
-                    "wallpaperplugin": "org.kde.image"
+                    "wallpaperplugin": "org.kde.slideshow"
+                },
+                "/ConfigDialog": {
+                    "DialogHeight": "630",
+                    "DialogWidth": "810"
                 },
                 "/Wallpaper/org.kde.image/General": {
-                    "Image": "file://" + userDataPath() + "/.local/share/wallpapers/MacTahoe"
+                    "Image": userDataPath() + "/Pictures/wallpapers/anime-girl-with-multicolored-eye.png"
+                },
+                "/Wallpaper/org.kde.slideshow/General": {
+                    "Image": "file://" + userDataPath() + "/Pictures/wallpapers/hatsune-miku-6.png",
+                    "SlidePaths": userDataPath() + "/Pictures/wallpapers/"
                 }
             },
-            "wallpaperPlugin": "org.kde.image"
+            "wallpaperPlugin": "org.kde.slideshow"
         }
     ],
     "panels": [
@@ -104,14 +152,40 @@ var layout = {
                             "popupHeight": "499",
                             "popupWidth": "639"
                         },
+                        "/ConfigDialog": {
+                            "DialogHeight": "630",
+                            "DialogWidth": "810"
+                        },
                         "/General": {
-                            "favoritesPortedToKAstats": "true"
+                            "favoritesPortedToKAstats": "true",
+                            "icon": userDataPath() + "/.local/share/icons/menu-ghost.svg"
                         },
                         "/Shortcuts": {
                             "global": "Alt+F1"
                         }
                     },
                     "plugin": "org.kde.plasma.kickoff"
+                },
+                {
+                    "config": {
+                        "/Appearance": {
+                            "widgetElements": "windowTitle",
+                            "windowTitleFontBold": "true",
+                            "windowTitleFontSize": "10",
+                            "windowTitleFontSizeMode": "0",
+                            "windowTitleHideEmpty": "true",
+                            "windowTitleMarginsLeft": "6",
+                            "windowTitleMarginsRight": "2",
+                            "windowTitleSource": "0",
+                            "windowTitleUndefined": ""
+                        },
+                        "/Behavior": {
+                            "widgetMouseAreaLeftDoubleClickAction": "None",
+                            "widgetMouseAreaMiddleClickAction": "None",
+                            "widgetMouseAreaWheelEnabled": "false"
+                        }
+                    },
+                    "plugin": "com.github.antroids.application-title-bar"
                 },
                 {
                     "config": {
@@ -197,7 +271,7 @@ var layout = {
                 {
                     "config": {
                         "/General": {
-                            "launchers": "preferred://filemanager,preferred://browser,applications:org.kde.konsole.desktop,applications:systemsettings.desktop"
+                            "launchers": "applications:com.microsoft.VSCode.desktop,applications:jetbrains-clion.desktop,applications:org.kde.konsole.desktop,applications:brave-browser.desktop,applications:firefox.desktop,preferred://filemanager,applications:systemsettings.desktop"
                         }
                     },
                     "plugin": "org.kde.plasma.icontasks"
@@ -230,22 +304,17 @@ var layout = {
 plasma.loadSerializedLayout(layout);
 
 
-// Desktop widget positions (x,y,width,height) inside the area left free by the panels,
-// computed from the screen size so the layout also fits resolutions other than 1920x1080.
-var PANELS_HEIGHT = 136;   // top bar + dock: screen height minus the free desktop area
+var POSITIONS = {"com.jaxparrow07.macoswidgets.clock-square": "32,48,176,176", "com.jaxparrow07.macoswidgets.calendar": "224,48,176,176", "com.jaxparrow07.macoswidgets.weather": "32,240,368,176", "com.jaxparrow07.macoswidgets.music": "32,432,368,176"};
 desktops().forEach(function (d) {
     var geo = [];
     var r = screenGeometry(d.screen);
-    var W = Math.round(r.width), H = Math.round(r.height) - PANELS_HEIGHT;
     d.widgets().forEach(function (w) {
-        var g = null;
-        if (w.type === "com.github.prayag2.modernclock") {
-            g = (Math.round(W / 2) - 304) + "," + (H - 208) + ",640,160";
-        } else if (w.type === "luisbocanegra.audio.visualizer") {
+        if (w.type === "com.jaxparrow07.macoswidgets.weather") {
+            // the dump drops the city name (non-ASCII?), but keeps its coordinates
             w.currentConfigGroup = ["General"];
-            g = ((w.readConfig("orientation", "2") == "3") ? (W - 160) : 0) + ",0,160," + H;
+            w.writeConfig("location", "Bogotá");
         }
-        if (g) geo.push("Applet-" + w.id + ":" + g + ",0");
+        if (POSITIONS[w.type]) geo.push("Applet-" + w.id + ":" + POSITIONS[w.type] + ",0");
     });
     d.currentConfigGroup = [];
     d.writeConfig("ItemGeometries-" + Math.round(r.width) + "x" + Math.round(r.height), geo.join(";") + ";");
@@ -253,13 +322,17 @@ desktops().forEach(function (d) {
     d.reloadConfig();
 });
 
-// The dump leaves out which plasmoids the system tray shows: add the extra ones back, and drop
-// the laptop ones (desktop PC). Dropped items stay in knownItems, or the tray re-adds them as new.
+// The dump leaves out the system tray's own settings: add the extra plasmoids back, drop the laptop
+// ones (desktop PC) and the trash (it lives in the dock), and hide the rarely used icons behind the
+// arrow, as in macOS. Dropped items stay in knownItems, or the tray re-adds them as new.
 panels().forEach(function (p) {
     p.widgets("org.kde.plasma.systemtray").forEach(function (w) {
-        var add = ["org.kde.plasma.trash", "org.kde.plasma.diskquota"];
-        var drop = ["org.kde.plasma.battery", "org.kde.plasma.brightness", "org.kde.plasma.dwellclicker"];
+        var add = ["org.kde.plasma.diskquota"];
+        var drop = ["org.kde.plasma.battery", "org.kde.plasma.brightness", "org.kde.plasma.dwellclicker",
+                    "org.kde.plasma.trash"];
         w.currentConfigGroup = ["General"];
+        w.writeConfig("hiddenItems", ["org.kde.plasma.clipboard", "org.kde.kdeconnect", "org.kde.plasma.weather",
+                                      "org.kde.kscreen", "org.kde.plasma.diskquota", "steam", "Cachy-Update"]);
         ["extraItems", "knownItems"].forEach(function (k) {
             var v = w.readConfig(k, []);
             if (typeof v === "string") v = v ? v.split(",") : [];

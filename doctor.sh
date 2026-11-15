@@ -28,6 +28,17 @@ fi
 mode="$(detect_mode)"
 check "Glass tint matches the colour scheme ($mode)" "./glass-effect.sh" \
   test "$(cat "$GLASS_STATE" 2>/dev/null)" = "$mode"
+check "kwin-effect-rounded-corners-git installed" "paru -S kwin-effect-rounded-corners-git" \
+  pacman -Q kwin-effect-rounded-corners-git
+if [[ -n "$QDBUS" ]]; then
+  check "Rounded Corners loaded in KWin" "fixglass, then ./glass-effect.sh" \
+    test "$("$QDBUS" org.kde.KWin /Effects org.kde.kwin.Effects.isEffectLoaded kwin4_effect_shapecorners)" = true
+fi
+
+section "Widgets"
+for id in com.github.antroids.application-title-bar com.jaxparrow07.macoswidgets.{clock-square,calendar,weather,music}; do
+  check "$id installed" "./install.sh" test -f "$DATA/plasma/plasmoids/$id/metadata.json"
+done
 
 section "Plasma Style"
 for s in "$LIGHT_STYLE" "$DARK_STYLE"; do
